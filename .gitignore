@@ -1,0 +1,10 @@
+# Created by https://www.toptal.com/developers/gitignore/api/android,gradle,kotlin
+### Android ###
+*.apk; *.aab; *.ap_; *.apks; *.dex; *.class; *.swp; *.oat; *.odex; .gradle/; build/; local.properties; *.log; .navigation/; captures/; *.hprof; lint.xml; *.jks; *.keystore; .cxx/; google-services.json; *.apk.idsig; *.apks.idsig; *.aab.idsig; sentry-debug-meta.properties; sentry-release.properties
+### Gradle ###
+.gradletasknamecache; gradle-app.setting; !gradle-wrapper.jar; !**/gradle-wrapper.jar
+### Kotlin ###
+*.class; *.jar; *.war; *.ear; *.log; build/; .idea/; *.iml; *.iws; .ktor/
+### Custom ###
+screenshots/
+config.properties
