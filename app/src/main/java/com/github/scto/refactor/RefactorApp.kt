@@ -2,8 +2,10 @@ package com.github.scto.refactor
 
 import android.app.Application
 import com.github.scto.refactor.selfupdate.UpdateManager
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+@HiltAndroidApp
 class RefactorApp : Application() {
     override fun onCreate() {
         super.onCreate()

@@ -9,14 +9,15 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
-        mavenCentral() 
+        mavenCentral()
     }
 }
-        
+
 rootProject.name = "Refactor"
 include(
     ":app",
     ":core",
+    ":data:local",
     ":features:git",
     ":ui:home",
     ":ui:onboarding",

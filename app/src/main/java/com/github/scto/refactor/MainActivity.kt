@@ -6,17 +6,35 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.github.scto.refactor.ui.home.HomeScreen
+import com.github.scto.refactor.ui.onboarding.OnboardingScreen
 import com.github.scto.refactor.ui.theme.RefactorTheme
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var viewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val onboardingCompleted by viewModel.onboardingCompleted.collectAsState()
             RefactorTheme {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    HomeScreen()
+                    if (onboardingCompleted) {
+                        HomeScreen()
+                    } else {
+                        OnboardingScreen(onOnboardingFinished = {
+                            viewModel.setOnboardingCompleted(true)
+                        })
+                    }
                 }
             }
         }

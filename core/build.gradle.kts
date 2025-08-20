@@ -7,13 +7,28 @@ android {
     namespace = "com.github.scto.refactor.core"
     compileSdk = 34
     
-    defaultConfig {
-        minSdk = 26
+	defaultConfig {
+      minSdk = 26
+      targetSdk = 28
+      versionCode = 100
+      versionName = "1.0.0"
     }
+	
+	buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+	
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+	
     kotlinOptions {
         jvmTarget = "17"
     }
