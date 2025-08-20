@@ -8,9 +8,6 @@ android {
 	
     defaultConfig {
 		minSdk = 26
-        targetSdk = 34
-        versionCode = 100
-        versionName = "1.0.0"
     }
 	
     compileOptions {
@@ -25,6 +22,7 @@ android {
     buildFeatures {
         compose = true
     }
+	
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.8"
     }
