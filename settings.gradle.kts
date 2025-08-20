@@ -1,7 +1,10 @@
+// Refactor/settings.gradle.kts
+
 pluginManagement {
     repositories {
         google()
         mavenCentral()
+        // WICHTIG: Das Gradle Plugin Portal hinzufügen
         gradlePluginPortal()
     }
 }
