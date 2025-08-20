@@ -18,6 +18,20 @@ subprojects {
             // Wählen Sie einen Formatter. ktlint ist eine beliebte Wahl.
             //ktlint().setEditorConfigPath(rootProject.file(".editorconfig"))
 			ktlint()
+			
+			//.setEditorConfigPath("$projectDir/config/.editorconfig")  // sample unusual placement
+            .editorConfigOverride(
+                mapOf(
+                    "indent_size" to 2,
+                    // intellij_idea is the default style we preset in Spotless, you can override it referring to https://pinterest.github.io/ktlint/latest/rules/code-styles.
+                    "ktlint_code_style" to "intellij_idea",
+                )
+            )
+            .customRuleSets(
+                listOf(
+                    "io.nlopez.compose.rules:ktlint:0.4.25"
+                )
+            )
 
             // Optional: Lizenz-Header hinzufügen
             //licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
@@ -28,6 +42,20 @@ subprojects {
         kotlinGradle {
             target("*.gradle.kts")
             ktlint()
+			
+			//.setEditorConfigPath("$projectDir/config/.editorconfig")  // sample unusual placement
+            .editorConfigOverride(
+                mapOf(
+                    "indent_size" to 2,
+                    // intellij_idea is the default style we preset in Spotless, you can override it referring to https://pinterest.github.io/ktlint/latest/rules/code-styles.
+                    "ktlint_code_style" to "intellij_idea",
+                )
+            )
+            .customRuleSets(
+                listOf(
+                    "io.nlopez.compose.rules:ktlint:0.4.25"
+                )
+            )
 			
 			// Optional: Lizenz-Header hinzufügen
             //licenseHeaderFile(rootProject.file("spotless/copyright.kts"))
@@ -77,9 +105,41 @@ subprojects {
 		yaml {
 			target("**/*.yml")
 			jackson()
+			prettier()
 		}
+		
+		shell {
+			shfmt('3.8.0') // version is optional
+			
+			// if shfmt is not on your path, you must specify its location manually
+			shfmt().pathToExe('/opt/homebrew/bin/shfmt')
+			
+			target 'scripts/**/*.sh' // default: '**/*.sh'
+			
+			// Spotless always checks the version of the shfmt it is using
+			// and will fail with an error if it does not match the expected version
+			// (whether manually specified or default). If there is a problem, Spotless
+			// will suggest commands to help install the correct version.
+			//   TODO: handle installation & packaging automatically - https://github.com/diffplug/spotless/issues/674
+        }
     }
 }
+
+/*
+Save your working tree with 
+git add -A,
+then git commit -m "Checkpoint before spotless."
+
+Run gradlew spotlessApply
+
+View the changes with git diff
+
+If you don't like what spotless did,
+git reset --hard
+
+If you'd like to remove the "checkpoint" commit,
+git reset --soft head~1 will make the checkpoint commit "disappear" from history, but keeps the changes in your working directory.
+*/
 
 // Wende die separate Konfigurationsdatei an
 //apply(from = "spotless.gradle.kts")
