@@ -30,17 +30,6 @@ subprojects {
 			// Optional: Lizenz-Header hinzufügen
             licenseHeaderFile(rootProject.file("spotless/copyright.kts"))
         }
-
-        // Java-Dateien formatieren (optional)
-        java {
-            target("**/*.java")
-            googleJavaFormat().aosp() // Verwendet den Google-Java-Stil für AOSP
-            removeUnusedImports()
-            trimTrailingWhitespace()
-			
-			// Optional: Lizenz-Header hinzufügen
-            licenseHeaderFile(rootProject.file("spotless/copyright.java"))
-        }
 		
 		// Konfiguration für XML-Dateien (Layouts, Manifest, etc.)
         format("xml") {
@@ -49,7 +38,12 @@ subprojects {
             prettier(mapOf("parser" to "xml", "tabWidth" to 4))
             trimTrailingWhitespace()
             endWithNewline()
-			
+			/* Some files have fixed header lines (e.g. <?xml version="1.0" ... in XMLs, or #!/bin/bash in bash scripts).
+			   Comments cannot precede these, so the license header has to come after them, too.
+               To define what lines to skip at the beginning of such files,
+			   fill the skipLinesMatching option with a regular expression that matches them (e.g. .skipLinesMatching("^#!.+?\$") to skip shebangs).
+            */
+			skipLinesMatching("^#!.+?\$")
 			// Optional: Lizenz-Header hinzufügen
             licenseHeaderFile(rootProject.file("spotless/copyright.xml"))
         }
