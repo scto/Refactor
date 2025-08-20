@@ -16,7 +16,8 @@ subprojects {
             targetExclude("$buildDir/**/*.kt") // Build-Verzeichnis ausschließen
 
             // Wählen Sie einen Formatter. ktlint ist eine beliebte Wahl.
-            ktlint().setEditorConfigPath(rootProject.file(".editorconfig"))
+            //ktlint().setEditorConfigPath(rootProject.file(".editorconfig"))
+			ktlint()
 
             // Optional: Lizenz-Header hinzufügen
             //licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
@@ -58,7 +59,7 @@ subprojects {
         format("xml") {
             target("src/**/*.xml", "*.xml")
             // Standard XML-Formatierung mit Einrückung
-            prettier(mapOf("parser" to "xml", "tabWidth" to 4))
+            //prettier(mapOf("parser" to "xml", "tabWidth" to 4))
             trimTrailingWhitespace()
             endWithNewline()
 			/* Some files have fixed header lines (e.g. <?xml version="1.0" ... in XMLs, or #!/bin/bash in bash scripts).
@@ -84,9 +85,11 @@ subprojects {
 //apply(from = "spotless.gradle.kts")
 
 // build.gradle.kts (Projektebene)
+/*
 tasks.withType<com.diffplug.gradle.spotless.SpotlessApplyTask>().configureEach {
     mustRunAfter("clean")
 }
 tasks.named("preBuild") {
     dependsOn("spotlessApply")
 }
+*/
