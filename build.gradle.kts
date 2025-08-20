@@ -19,20 +19,6 @@ subprojects {
             //ktlint().setEditorConfigPath(rootProject.file(".editorconfig"))
 			ktlint()
 			
-			//.setEditorConfigPath("$projectDir/config/.editorconfig")  // sample unusual placement
-            .editorConfigOverride(
-                mapOf(
-                    "indent_size" to 2,
-                    // intellij_idea is the default style we preset in Spotless, you can override it referring to https://pinterest.github.io/ktlint/latest/rules/code-styles.
-                    "ktlint_code_style" to "intellij_idea",
-                )
-            )
-            .customRuleSets(
-                listOf(
-                    "io.nlopez.compose.rules:ktlint:0.4.25"
-                )
-            )
-
             // Optional: Lizenz-Header hinzufügen
             //licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
 			licenseHeaderFile(rootProject.file("spotless/copyright.kt"), "(^(?![\\/ ]\\*).*$)")
@@ -42,20 +28,6 @@ subprojects {
         kotlinGradle {
             target("*.gradle.kts")
             ktlint()
-			
-			//.setEditorConfigPath("$projectDir/config/.editorconfig")  // sample unusual placement
-            .editorConfigOverride(
-                mapOf(
-                    "indent_size" to 2,
-                    // intellij_idea is the default style we preset in Spotless, you can override it referring to https://pinterest.github.io/ktlint/latest/rules/code-styles.
-                    "ktlint_code_style" to "intellij_idea",
-                )
-            )
-            .customRuleSets(
-                listOf(
-                    "io.nlopez.compose.rules:ktlint:0.4.25"
-                )
-            )
 			
 			// Optional: Lizenz-Header hinzufügen
             //licenseHeaderFile(rootProject.file("spotless/copyright.kts"))
@@ -105,7 +77,7 @@ subprojects {
 		yaml {
 			target("**/*.yml")
 			jackson()
-			prettier()
+			//prettier()
 		}
     }
 }
