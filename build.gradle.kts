@@ -53,8 +53,22 @@ subprojects {
 			// Optional: Lizenz-Header hinzufügen
             licenseHeaderFile(rootProject.file("spotless/copyright.xml"))
         }
+		
+		// Konfiguration für YAML/YML-Dateien (Github workflows.)
+		yaml {
+			target("**/*.yml")
+			jackson()
+		}
     }
 }
 
 // Wende die separate Konfigurationsdatei an
 //apply(from = "spotless.gradle.kts")
+
+// build.gradle.kts (Projektebene)
+tasks.withType<com.diffplug.gradle.spotless.SpotlessApplyTask>().configureEach {
+    mustRunAfter("clean")
+}
+tasks.named("preBuild") {
+    dependsOn("spotlessApply")
+}
