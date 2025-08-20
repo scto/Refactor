@@ -3,44 +3,23 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.android) apply false
     id("com.google.dagger.hilt.android") version "2.51.1" apply false
-    //alias(libs.plugins.spotless)
+    alias(libs.plugins.spotless)
+	//alias(libs.plugins.spotless.gradle)
 }
 
-/*
-spotless {
-    kotlin {
-        target("**/src/**/*.kt")
-        ktlint("1.2.1").userData(mapOf("android" to "true"))
-        licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
+subprojects {
+    apply(plugin = "com.diffplug.spotless")
+    configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+        kotlin {
+            target("**/*.kt")
+            targetExclude("${layout.buildDirectory}/**/*.kt")
+            targetExclude("bin/**/*.kt")
 
-    kotlinGradle {
-        target("**/*.gradle.kts")
-        ktlint("1.2.1")
-        licenseHeaderFile(rootProject.file("spotless/copyright.kts"))
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-
-    format("xml") {
-        target("**/src/**/*.xml")
-        prettier(mapOf("parser" to "xml", "tabWidth" to 4))
-        licenseHeaderFile(rootProject.file("spotless/copyright.xml"), "<!--(?s).*?-->")
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-
-    java {
-        target("**/src/**/*.java")
-        googleJavaFormat("1.17.0")
-        licenseHeaderFile(rootProject.file("spotless/copyright.java"))
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
+            ktlint()
+            licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
+        }
+		
 }
-*/
 
 /*
 Save your working tree with 

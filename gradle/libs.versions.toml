@@ -13,6 +13,7 @@ okhttp = "4.12.0"
 kotlinxCoroutines = "1.7.3"
 generativeAi = "0.6.0"
 spotless = "6.25.0" # Version für Spotless hinzufügen
+spotless-gradle = "7.2.1" # Version für Spotless hinzufügen
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -42,3 +43,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" } # Spotless Plugin deklarieren
+spotless-gradle = { id = "com.diffplug.gradle.spotless", version.ref = "spotless-gradle" } # Spotless Plugin deklarieren
