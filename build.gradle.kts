@@ -107,21 +107,6 @@ subprojects {
 			jackson()
 			prettier()
 		}
-		
-		shell {
-			shfmt('3.8.0') // version is optional
-			
-			// if shfmt is not on your path, you must specify its location manually
-			shfmt().pathToExe('/opt/homebrew/bin/shfmt')
-			
-			target 'scripts/**/*.sh' // default: '**/*.sh'
-			
-			// Spotless always checks the version of the shfmt it is using
-			// and will fail with an error if it does not match the expected version
-			// (whether manually specified or default). If there is a problem, Spotless
-			// will suggest commands to help install the correct version.
-			//   TODO: handle installation & packaging automatically - https://github.com/diffplug/spotless/issues/674
-        }
     }
 }
 
