@@ -19,7 +19,8 @@ subprojects {
             ktlint().setEditorConfigPath(rootProject.file(".editorconfig"))
 
             // Optional: Lizenz-Header hinzufügen
-            licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
+            //licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
+			licenseHeaderFile(rootProject.file("spotless/copyright.kt"), "(^(?![\\/ ]\\*).*$)")
         }
 
         // Gradle-Kotlin-Skriptdateien formatieren
@@ -28,7 +29,29 @@ subprojects {
             ktlint()
 			
 			// Optional: Lizenz-Header hinzufügen
-            licenseHeaderFile(rootProject.file("spotless/copyright.kts"))
+            //licenseHeaderFile(rootProject.file("spotless/copyright.kts"))
+			licenseHeaderFile(rootProject.file("spotless/copyright.kts"), "(^(?![\\/ ]\\*).*$)")
+        }
+		
+		// Java-Dateien formatieren
+		java {
+            target("**/*.java")
+            targetExclude("**/build/**/*.java")
+
+            // Use the default importOrder configuration
+            importOrder()
+
+            // Cleanthat will refactor your code, but it may break your style: apply it before your formatter
+            cleanthat()
+
+            // Use google-java-format
+            googleJavaFormat()
+
+            // Fix formatting of type annotations
+            formatAnnotations()
+
+            // Look for the first line that doesn't have a block comment (assumed to be the license)
+            licenseHeaderFile(rootProject.file("spotless/copyright.java"), "(^(?![\\/ ]\\*).*$)")
         }
 		
 		// Konfiguration für XML-Dateien (Layouts, Manifest, etc.)
@@ -43,9 +66,10 @@ subprojects {
                To define what lines to skip at the beginning of such files,
 			   fill the skipLinesMatching option with a regular expression that matches them (e.g. .skipLinesMatching("^#!.+?\$") to skip shebangs).
             */
-			skipLinesMatching("^#!.+?\$")
+			//skipLinesMatching("^#!.+?\$")
 			// Optional: Lizenz-Header hinzufügen
-            licenseHeaderFile(rootProject.file("spotless/copyright.xml"))
+            //licenseHeaderFile(rootProject.file("spotless/copyright.xml"))
+			licenseHeaderFile(rootProject.file("spotless/copyright.xml"), "(^(?![\\/ ]\\*).*$)")
         }
 		
 		// Konfiguration für YAML/YML-Dateien (Github workflows.)
