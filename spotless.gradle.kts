@@ -3,42 +3,38 @@
 spotless {
     // Konfiguration für Kotlin-Dateien (*.kt)
     kotlin {
-        target("src/**/*.kt")
-        // Nutze ktlint zur Formatierung mit der empfohlenen Version
+        target("**/src/**/*.kt")
         ktlint("1.2.1").userData(mapOf("android" to "true"))
-        // Fügt einen Lizenz-Header hinzu (optional, aber gute Praxis)
-        licenseHeader(
-            """// Copyright (C) 2024 The Android Open Source Project
-               |//
-               |// Licensed under the Apache License, Version 2.0 (the "License");
-               |// you may not use this file except in compliance with the License.
-               |// You may obtain a copy of the License at
-               |//
-               |//      http://www.apache.org/licenses/LICENSE-2.0
-               |//
-               |// Unless required by applicable law or agreed to in writing, software
-               |// distributed under the License is distributed on an "AS IS" BASIS,
-               |// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-               |// See the License for the specific language governing permissions and
-               |// limitations under the License.""".trimMargin()
-        )
+        // Korrekte Anwendung des Lizenz-Headers für Kotlin
+        licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
         trimTrailingWhitespace()
         endWithNewline()
     }
 
-    // Konfiguration für Gradle Kotlin Skripte (*.kts)
+    // Konfiguration für Gradle Kotlin Skripte (*.gradle.kts)
     kotlinGradle {
-        target("*.kts", "**/*.kts")
+        target("**/*.gradle.kts")
         ktlint("1.2.1")
+        licenseHeaderFile(rootProject.file("spotless/copyright.kts"))
         trimTrailingWhitespace()
         endWithNewline()
     }
 
     // Konfiguration für XML-Dateien (Layouts, Manifest, etc.)
     format("xml") {
-        target("src/**/*.xml", "*.xml")
-        // Standard XML-Formatierung mit Einrückung
+        target("**/src/**/*.xml")
         prettier(mapOf("parser" to "xml", "tabWidth" to 4))
+        // WICHTIG: Der Delimiter wird hier hinzugefügt, um XML-Kommentare korrekt zu erkennen
+        licenseHeaderFile(rootProject.file("spotless/copyright.xml"), "<!--(?s).*?-->")
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+
+    // Konfiguration für Java-Dateien (falls vorhanden)
+    java {
+        target("**/src/**/*.java")
+        googleJavaFormat("1.17.0")
+        licenseHeaderFile(rootProject.file("spotless/copyright.java"))
         trimTrailingWhitespace()
         endWithNewline()
     }
