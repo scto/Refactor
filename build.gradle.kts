@@ -18,7 +18,7 @@ subprojects {
             ktlint()
             licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
         }
-		
+	}	
 }
 
 /*
