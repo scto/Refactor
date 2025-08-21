@@ -3,22 +3,68 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.android) apply false
     id("com.google.dagger.hilt.android") version "2.51.1" apply false
-    alias(libs.plugins.spotless)
+    alias(libs.plugins.spotless) apply false
 	//alias(libs.plugins.spotless.gradle)
 }
 
 subprojects {
-    apply(plugin = "com.diffplug.spotless")
-    configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+    apply<com.diffplug.gradle.spotless.SpotlessPlugin>()
+    extensions.configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         kotlin {
             target("**/*.kt")
-            targetExclude("${layout.buildDirectory}/**/*.kt")
-            targetExclude("bin/**/*.kt")
-
+            targetExclude("**/build/**/*.kt")
             ktlint()
-            licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
+
+            // Look for the first line that doesn't have a block comment (assumed to be the license)
+            licenseHeaderFile(rootProject.file("spotless/copyright.kt"), "(^(?![\\/ ]\\*).*$)")
         }
-	}	
+        kotlinGradle {
+            target("**/*.gradle.kts")
+            targetExclude("**/build/**/*.gradle.kts")
+            ktlint()
+
+            // Look for the first line that doesn't have a block comment (assumed to be the license)
+            licenseHeaderFile(rootProject.file("spotless/copyright.kts"), "(^(?![\\/ ]\\*).*$)")
+        }
+        java {
+            target("**/*.java")
+            targetExclude("**/build/**/*.java")
+
+            // Use the default importOrder configuration
+            importOrder()
+
+            // Cleanthat will refactor your code, but it may break your style: apply it before your formatter
+            cleanthat()
+
+            // Use google-java-format
+            googleJavaFormat()
+
+            // Fix formatting of type annotations
+            formatAnnotations()
+
+            // Look for the first line that doesn't have a block comment (assumed to be the license)
+            licenseHeaderFile(rootProject.file("spotless/copyright.java"), "(^(?![\\/ ]\\*).*$)")
+        }
+        groovyGradle {
+            target("**/*.gradle")
+            targetExclude("**/build/**/*.gradle")
+
+            // Look for the first line that doesn't have a block comment (assumed to be the license)
+            licenseHeaderFile(rootProject.file("spotless/copyright.gradle"), "(^(?![\\/ ]\\*).*$)")
+        }
+        format("xml") {
+            target("**/*.xml")
+            targetExclude("**/build/**/*.xml")
+
+            // Look for the first XML tag that isn't a comment (<!--) or the xml declaration (<?xml)
+            licenseHeaderFile(rootProject.file("spotless/copyright.xml"), "(<[^!?])")
+        }
+    }
+    afterEvaluate {
+        tasks.named("preBuild") {
+            dependsOn("spotlessApply")
+        }
+    }
 }
 
 /*
