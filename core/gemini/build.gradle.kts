@@ -76,7 +76,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     // KORRIGIERT: Explizite Abhängigkeit hinzugefügt, um das Problem zu beheben
-    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.material3:material3:1.3.2")
     implementation(libs.google.generativeai)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
