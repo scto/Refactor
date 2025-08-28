@@ -1,0 +1,79 @@
+# .github/workflows/manual-formatter.yml
+
+# Name des Workflows
+name: "Manual Code Formatter"
+
+# Trigger: Erlaubt das manuelle Starten des Workflows
+on:
+  workflow_dispatch:
+    # Definiert die Eingabefelder, die im GitHub UI angezeigt werden
+    inputs:
+      mode:
+        # Beschreibung des Feldes
+        description: "Wählen Sie den Modus: 'check' zur Überprüfung oder 'apply' zum Formatieren."
+        # Erstellt ein Dropdown-Menü
+        type: choice
+        # Die verfügbaren Optionen im Dropdown
+        options:
+          - check
+          - apply
+        # Ein Standardwert, der vorausgewählt ist
+        default: 'check'
+        # Das Feld muss ausgefüllt werden
+        required: true
+
+# Notwendige Berechtigungen, damit der Workflow Code zurückschreiben (committen) kann
+permissions:
+  contents: write
+
+# Definition der auszuführenden Jobs
+jobs:
+  format-code:
+    # Betriebssystem für den Job
+    runs-on: ubuntu-latest
+
+    # Die einzelnen Schritte des Jobs
+    steps:
+      # Schritt 1: Code aus dem Repository auschecken
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Schritt 2: Java Development Kit (JDK) einrichten
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Schritt 3: Gradle Wrapper ausführbar machen
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      # Schritt 4: NUR ausführen, wenn der Modus 'check' gewählt wurde
+      - name: Run Spotless Check
+        if: github.event.inputs.mode == 'check'
+        run: ./gradlew spotlessCheck
+
+      # Schritt 5: NUR ausführen, wenn der Modus 'apply' gewählt wurde
+      - name: Run Spotless Apply
+        if: github.event.inputs.mode == 'apply'
+        run: ./gradlew spotlessApply
+
+      # Schritt 6: Änderungen committen und pushen, NUR wenn 'apply' gewählt wurde
+      - name: Commit and Push Changes
+        if: github.event.inputs.mode == 'apply'
+        run: |
+          # Git-Benutzer für den Commit konfigurieren
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Prüfen, ob es überhaupt Änderungen gibt
+          if ! git diff --quiet; then
+            echo "Änderungen gefunden. Committe und pushe..."
+            git add .
+            git commit -m "style: Automatisierte Code-Formatierung durch Spotless"
+            git push
+          else
+            echo "Keine Formatierungsänderungen zum Committen."
+          fi
+          
