@@ -59,7 +59,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.1")
 
     // DataStore (Proto)
-    implementation("androidx.datastore:datastore:1.1.1")
+    implementation("androidx.datastore:datastore:1.1.7")
     
     // https://mvnrepository.com/artifact/com.google.protobuf/protoc
     //implementation("com.google.protobuf:protoc:3.25.3")
