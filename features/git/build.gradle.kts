@@ -7,6 +7,12 @@ plugins {
     alias(libs.plugins.protobuf)
 }
 
+// HINZUGEFÜGT: Der ksp-Block wurde für eine saubere Konfiguration auf die oberste Ebene verschoben.
+// Dies ist die Standardmethode, um KSP-Argumente für Room zu definieren.
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 android {
     namespace = "com.github.scto.refactor.features.git"
     compileSdk = 35
@@ -17,9 +23,7 @@ android {
         // WICHTIG: Test-Runner für Instrumented Tests hinzufügen
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
+        // ENTFERNT: Der ksp-Block wurde von hier entfernt, da er jetzt global definiert ist.
     }
 
     buildTypes {
@@ -59,7 +63,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.1")
 
     // DataStore (Proto)
-    implementation("androidx.datastore:datastore:1.1.7")
+    implementation("androidx.datastore:datastore:1.1.1")
     
     // https://mvnrepository.com/artifact/com.google.protobuf/protoc
     //implementation("com.google.protobuf:protoc:3.25.3")
