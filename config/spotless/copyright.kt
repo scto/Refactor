@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Thomas Schmid 
+ * Copyright 2025 Thomas Schmid
  *
  * Copyright 2019 Google LLC
  *

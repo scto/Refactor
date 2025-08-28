@@ -17,7 +17,7 @@ data class RefactoringConfig(
     val convertSvgToAvd: Boolean = false,
     val refactorThemes: Boolean = false,
     val xmlToCompose: Boolean = false,
-    val codeAnalysis: Boolean = false
+    val codeAnalysis: Boolean = false,
 ) {
     val projectRoot: File by lazy {
         if (projectPath.isBlank()) {

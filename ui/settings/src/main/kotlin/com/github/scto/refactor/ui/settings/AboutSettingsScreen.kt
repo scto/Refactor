@@ -33,29 +33,37 @@ fun AboutSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         // KORRIGIERT: Explizite Parameterbenennung zur Behebung der Mehrdeutigkeit
-                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Zurück")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Zurück",
+                        )
                     }
-                }
+                },
             )
         }
     ) { padding ->
         Column(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize(),
+            modifier = Modifier.padding(padding).fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
-            Text("Refactor", style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
+            Text(
+                "Refactor",
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.Bold,
+            )
             Spacer(modifier = Modifier.height(8.dp))
             Text("Version ${uiState.appVersion}", style = MaterialTheme.typography.bodyLarge)
             Spacer(modifier = Modifier.height(24.dp))
             Text("Entwickelt von [Dein Name/Team]", style = MaterialTheme.typography.bodyMedium)
             Spacer(modifier = Modifier.height(24.dp))
-            Button(onClick = {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/scto/refactor"))
-                context.startActivity(intent)
-            }) {
+            Button(
+                onClick = {
+                    val intent =
+                        Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/scto/refactor"))
+                    context.startActivity(intent)
+                }
+            ) {
                 Text("Source Code")
             }
         }

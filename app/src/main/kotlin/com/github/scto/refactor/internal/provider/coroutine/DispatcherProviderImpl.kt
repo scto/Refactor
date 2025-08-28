@@ -21,6 +21,8 @@ import kotlinx.coroutines.Dispatchers
 
 internal class DispatcherProviderImpl : DispatcherProvider {
     override fun io() = Dispatchers.IO
+
     override fun default() = Dispatchers.Default
+
     override fun main() = Dispatchers.Main
 }

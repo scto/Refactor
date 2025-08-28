@@ -2,7 +2,6 @@ package com.github.scto.refactor.selfupdate
 
 import android.content.Context
 import android.content.pm.PackageManager
-
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -10,9 +9,7 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
-
 import kotlinx.serialization.json.Json
-
 import timber.log.Timber
 
 internal class UpdateChecker(private val context: Context) {
@@ -22,29 +19,31 @@ internal class UpdateChecker(private val context: Context) {
         HttpClient(CIO) {
             // Plugin für die JSON-Serialisierung
             install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true // Ignoriert unbekannte Felder in der JSON-Antwort
-                    prettyPrint = true
-                })
+                json(
+                    Json {
+                        ignoreUnknownKeys = true // Ignoriert unbekannte Felder in der JSON-Antwort
+                        prettyPrint = true
+                    }
+                )
             }
             // Plugin für das Logging von Anfragen und Antworten
             install(Logging) {
-                logger = object : Logger {
-                    override fun log(message: String) {
-                        Timber.tag("Ktor").d(message)
+                logger =
+                    object : Logger {
+                        override fun log(message: String) {
+                            Timber.tag("Ktor").d(message)
+                        }
                     }
-                }
                 level = LogLevel.ALL
             }
         }
     }
 
-    /**
-     * Ruft das neueste Release von GitHub ab.
-     */
+    /** Ruft das neueste Release von GitHub ab. */
     suspend fun getLatestRelease(user: String, repo: String): GitHubRelease? {
         return try {
-            val releases: List<GitHubRelease> = client.get("https://api.github.com/repos/$user/$repo/releases").body()
+            val releases: List<GitHubRelease> =
+                client.get("https://api.github.com/repos/$user/$repo/releases").body()
             releases.firstOrNull() // Das erste Element in der Liste ist das Neueste
         } catch (e: Exception) {
             Timber.e(e, "Fehler beim Abrufen der Releases von GitHub.")
@@ -52,9 +51,7 @@ internal class UpdateChecker(private val context: Context) {
         }
     }
 
-    /**
-     * Gibt die aktuelle Version der App zurück.
-     */
+    /** Gibt die aktuelle Version der App zurück. */
     fun getCurrentAppVersion(): String {
         return try {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)

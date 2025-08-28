@@ -38,21 +38,15 @@ fun NavController.navigateToSettingsGraph(navOptions: NavOptions? = null) {
     this.navigate(SETTINGS_GRAPH_ROUTE_PATTERN, navOptions)
 }
 
-fun NavGraphBuilder.settingsGraph(
-    onBackClick: () -> Unit,
-    navController: NavController,
-) {
-    navigation(
-        route = SETTINGS_GRAPH_ROUTE_PATTERN,
-        startDestination = MAIN_SETTINGS_ROUTE,
-    ) {
+fun NavGraphBuilder.settingsGraph(onBackClick: () -> Unit, navController: NavController) {
+    navigation(route = SETTINGS_GRAPH_ROUTE_PATTERN, startDestination = MAIN_SETTINGS_ROUTE) {
         composable(route = MAIN_SETTINGS_ROUTE) {
             MainSettingsScreen(
                 onBackClick = onBackClick,
                 onNavigate = { route -> navController.navigate(route) },
             )
         }
-		composable(route = ABOUT_SETTINGS_ROUTE) {
+        composable(route = ABOUT_SETTINGS_ROUTE) {
             AboutSettingsScreen(onBackClick = { navController.popBackStack() })
         }
         composable(route = THEME_SETTINGS_ROUTE) {

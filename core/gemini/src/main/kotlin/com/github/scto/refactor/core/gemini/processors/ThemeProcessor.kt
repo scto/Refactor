@@ -3,16 +3,17 @@ package com.github.scto.refactor.core.gemini.processors
 import com.github.scto.refactor.core.gemini.arch.Processor
 import com.github.scto.refactor.core.gemini.config.RefactoringConfig
 import com.github.scto.refactor.core.gemini.ui.RefactoringOption
+import java.io.File
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
-import java.io.File
 
 object ThemeProcessor : Processor {
     override val id = RefactoringOption.REFACTOR_THEMES
     override val name: String = "Theme zu Material 3 Konverter"
-    override val description: String = "Konvertiert alte XML-Themes in ein modernes Material 3 Theme."
+    override val description: String =
+        "Konvertiert alte XML-Themes in ein modernes Material 3 Theme."
 
     override fun process(config: RefactoringConfig): Flow<String> = flow {
         val resDir = config.projectRoot.walk().find { it.isDirectory && it.name == "res" }
@@ -32,9 +33,13 @@ object ThemeProcessor : Processor {
         }
 
         emit("Konvertiere Themes nach Material 3...")
-        val result = withContext(Dispatchers.IO) {
-            GeminiProcessor.convertThemeToMaterial3(oldThemesFile.readText(), oldColorsFile.readText())
-        }
+        val result =
+            withContext(Dispatchers.IO) {
+                GeminiProcessor.convertThemeToMaterial3(
+                    oldThemesFile.readText(),
+                    oldColorsFile.readText(),
+                )
+            }
 
         // KORRIGIERT: Result-Objekt wird jetzt korrekt mit fold behandelt
         result.fold(
@@ -49,7 +54,7 @@ object ThemeProcessor : Processor {
             },
             onFailure = { error ->
                 emit("  -> FEHLER bei der Theme-Konvertierung: ${error.localizedMessage}")
-            }
+            },
         )
     }
 }

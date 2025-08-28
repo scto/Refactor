@@ -38,9 +38,12 @@ fun ThemeSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
                 title = { Text("Erscheinungsbild") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Zurück")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Zurück",
+                        )
                     }
-                }
+                },
             )
         }
     ) { padding ->
@@ -49,13 +52,13 @@ fun ThemeSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
             Text(
                 text = "Theme",
                 style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             )
             ThemeSetting.values().forEach { theme ->
                 ThemeOptionRow(
                     text = theme.name.lowercase().replaceFirstChar { it.titlecase() },
                     selected = uiState.theme == theme,
-                    onClick = { viewModel.handleEvent(SettingsUiEvent.OnThemeChanged(theme)) }
+                    onClick = { viewModel.handleEvent(SettingsUiEvent.OnThemeChanged(theme)) },
                 )
             }
 
@@ -64,15 +67,19 @@ fun ThemeSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
             // Abschnitt für Dynamic Color mit einem Switch
             ListItem(
                 headlineContent = { Text("Dynamische Farben") },
-                supportingContent = { Text("Farben aus dem Hintergrundbild verwenden (nur Android 12+)") },
+                supportingContent = {
+                    Text("Farben aus dem Hintergrundbild verwenden (nur Android 12+)")
+                },
                 trailingContent = {
                     Switch(
                         checked = uiState.useDynamicColor,
                         onCheckedChange = { useDynamicColor ->
-                            viewModel.handleEvent(SettingsUiEvent.OnDynamicColorChanged(useDynamicColor))
-                        }
+                            viewModel.handleEvent(
+                                SettingsUiEvent.OnDynamicColorChanged(useDynamicColor)
+                            )
+                        },
                     )
-                }
+                },
             )
         }
     }
@@ -81,19 +88,12 @@ fun ThemeSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
 @Composable
 fun ThemeOptionRow(text: String, selected: Boolean, onClick: () -> Unit) {
     Row(
-        Modifier
-            .fillMaxWidth()
-            .selectable(
-                selected = selected,
-                onClick = onClick
-            )
+        Modifier.fillMaxWidth()
+            .selectable(selected = selected, onClick = onClick)
             .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-        RadioButton(
-            selected = selected,
-            onClick = onClick
-        )
+        RadioButton(selected = selected, onClick = onClick)
         Spacer(Modifier.width(16.dp))
         Text(text, style = MaterialTheme.typography.bodyLarge)
     }

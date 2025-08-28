@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-
 import com.github.scto.refactor.core.gemini.ui.RefactorViewModel
 import com.github.scto.refactor.core.gemini.ui.RefactoringOption
 import com.github.scto.refactor.core.gemini.ui.UiEvent
@@ -26,42 +25,38 @@ import com.github.scto.refactor.core.gemini.ui.UiState
 @Composable
 fun HomeScreen(viewModel: RefactorViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsState()
-    val projectPickerLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.OpenDocumentTree()
-    ) { uri ->
-        // Der Pfad muss korrekt extrahiert werden, dies ist ein häufiger Fehlerpunkt.
-        // Die gegebene Implementierung ist für dieses Beispiel ausreichend.
-        uri?.path?.let { viewModel.onEvent(UiEvent.ProjectPathChanged(it)) }
-    }
+    val projectPickerLauncher =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.OpenDocumentTree()) {
+            uri ->
+            // Der Pfad muss korrekt extrahiert werden, dies ist ein häufiger Fehlerpunkt.
+            // Die gegebene Implementierung ist für dieses Beispiel ausreichend.
+            uri?.path?.let { viewModel.onEvent(UiEvent.ProjectPathChanged(it)) }
+        }
 
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("Refactor") }) }
-    ) { padding ->
+    Scaffold(topBar = { TopAppBar(title = { Text("Refactor") }) }) { padding ->
         Column(
             modifier = Modifier.padding(padding).fillMaxSize().padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             // UI-Komponenten bleiben gleich, verwenden aber jetzt den zentralen State
             ProjectPickerSection(
                 path = uiState.projectPath,
-                onPickProject = { projectPickerLauncher.launch(null) }
+                onPickProject = { projectPickerLauncher.launch(null) },
             )
             Spacer(modifier = Modifier.height(16.dp))
             PackageNameInputs(
                 targetPackageName = uiState.targetPackageName,
-                onNewChanged = { viewModel.onEvent(UiEvent.TargetPackageNameChanged(it)) }
+                onNewChanged = { viewModel.onEvent(UiEvent.TargetPackageNameChanged(it)) },
             )
-			Spacer(modifier = Modifier.height(16.dp))
-			
-			
-			
+            Spacer(modifier = Modifier.height(16.dp))
+
             Spacer(modifier = Modifier.height(16.dp))
             RefactorTabs(uiState = uiState, viewModel = viewModel)
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = { viewModel.onEvent(UiEvent.StartRefactoringClicked) },
                 enabled = uiState.projectPath.isNotEmpty() && !uiState.isRunning,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 if (uiState.isRunning) {
                     CircularProgressIndicator(modifier = Modifier.size(24.dp))
@@ -84,11 +79,7 @@ private fun ProjectPickerSection(path: String, onPickProject: () -> Unit) {
         label = { Text("Projekt-Pfad") },
         modifier = Modifier.fillMaxWidth(),
         readOnly = true,
-        trailingIcon = {
-            Button(onClick = onPickProject) {
-                Text("Wählen")
-            }
-        }
+        trailingIcon = { Button(onClick = onPickProject) { Text("Wählen") } },
     )
 }
 
@@ -98,7 +89,7 @@ private fun PackageNameInputs(targetPackageName: String, onNewChanged: (String) 
         value = targetPackageName,
         onValueChange = onNewChanged,
         label = { Text("Neuer Paketname (optional)") },
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     )
 }
 
@@ -109,15 +100,21 @@ private fun RefactorTabs(uiState: UiState, viewModel: RefactorViewModel) {
     Column(modifier = Modifier.weight(1f)) {
         TabRow(selectedTabIndex = selectedTabIndex) {
             tabs.forEachIndexed { index, title ->
-                Tab(selected = selectedTabIndex == index,
+                Tab(
+                    selected = selectedTabIndex == index,
                     onClick = { selectedTabIndex = index },
-                    text = { Text(title) })
+                    text = { Text(title) },
+                )
             }
         }
         when (selectedTabIndex) {
-            0 -> ProcessorsTab(uiState, onProcessorToggled = { option, isEnabled ->
-                viewModel.onEvent(UiEvent.RefactoringOptionToggled(option, isEnabled))
-            })
+            0 ->
+                ProcessorsTab(
+                    uiState,
+                    onProcessorToggled = { option, isEnabled ->
+                        viewModel.onEvent(UiEvent.RefactoringOptionToggled(option, isEnabled))
+                    },
+                )
             1 -> LogTab(uiState.logs)
         }
     }
@@ -127,10 +124,13 @@ private fun RefactorTabs(uiState: UiState, viewModel: RefactorViewModel) {
 fun ProcessorsTab(state: UiState, onProcessorToggled: (RefactoringOption, Boolean) -> Unit) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(RefactoringOption.values()) { option ->
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+            ) {
                 Checkbox(
                     checked = state.options.contains(option),
-                    onCheckedChange = { isEnabled -> onProcessorToggled(option, isEnabled) }
+                    onCheckedChange = { isEnabled -> onProcessorToggled(option, isEnabled) },
                 )
                 Text(option.displayText, Modifier.padding(start = 8.dp))
             }
@@ -141,15 +141,13 @@ fun ProcessorsTab(state: UiState, onProcessorToggled: (RefactoringOption, Boolea
 @Composable
 fun LogTab(logs: List<String>) {
     val scrollState = rememberScrollState()
-    LaunchedEffect(logs.size) {
-        scrollState.animateScrollTo(scrollState.maxValue)
-    }
+    LaunchedEffect(logs.size) { scrollState.animateScrollTo(scrollState.maxValue) }
     Column(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.weight(1f)) {
             Text(
                 text = logs.joinToString("\n"),
                 fontFamily = FontFamily.Monospace,
-                modifier = Modifier.fillMaxSize().verticalScroll(scrollState).padding(8.dp)
+                modifier = Modifier.fillMaxSize().verticalScroll(scrollState).padding(8.dp),
             )
         }
     }

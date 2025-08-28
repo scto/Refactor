@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 
 /**
@@ -26,28 +25,26 @@ fun AccessibleRefactoringOption(
     text: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            // Macht die gesamte Zeile klickbar und verbessert die Zugänglichkeit.
-            .toggleable(
-                value = checked,
-                onValueChange = onCheckedChange,
-                role = Role.Checkbox // Definiert die semantische Rolle für Screenreader.
-            )
-            .padding(horizontal = 16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+                // Macht die gesamte Zeile klickbar und verbessert die Zugänglichkeit.
+                .toggleable(
+                    value = checked,
+                    onValueChange = onCheckedChange,
+                    role = Role.Checkbox, // Definiert die semantische Rolle für Screenreader.
+                )
+                .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Checkbox(
             checked = checked,
-            onCheckedChange = null // Die Logik wird durch das toggleable-Modifier gehandhabt.
+            onCheckedChange = null, // Die Logik wird durch das toggleable-Modifier gehandhabt.
         )
-        Text(
-            text = text,
-            modifier = Modifier.padding(start = 16.dp)
-        )
+        Text(text = text, modifier = Modifier.padding(start = 16.dp))
     }
-} 
+}

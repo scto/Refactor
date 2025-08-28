@@ -36,11 +36,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.blacksquircle.ui.R
 import com.blacksquircle.ui.ds.PreviewBackground
+import com.blacksquircle.ui.ds.R as UiR
 import com.blacksquircle.ui.ds.SquircleTheme
 import com.blacksquircle.ui.ds.progress.CircularProgress
 import com.blacksquircle.ui.ds.progress.CircularProgressSizeDefaults
 import com.blacksquircle.ui.ds.progress.CircularProgressStyleDefaults
-import com.blacksquircle.ui.ds.R as UiR
 
 /** https://developer.android.com/develop/ui/views/launch/splash-screen#dimensions */
 private val SplashIconSize = 288.dp
@@ -49,10 +49,7 @@ private val SplashIconSize = 288.dp
 internal fun SplashScreen() {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .pointerInput(Unit) { /* no-op */ },
+        modifier = Modifier.fillMaxSize().background(Color.Black).pointerInput(Unit) { /* no-op */ },
     ) {
         Icon(
             painter = painterResource(UiR.drawable.ic_splash_screen),
@@ -83,7 +80,5 @@ internal fun SplashScreen() {
 @Preview
 @Composable
 private fun SplashScreenPreview() {
-    PreviewBackground {
-        SplashScreen()
-    }
+    PreviewBackground { SplashScreen() }
 }

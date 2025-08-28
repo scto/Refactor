@@ -38,17 +38,12 @@ internal fun UpdateScreen(navController: NavController) {
             sendNavigationResult(KEY_INSTALL_UPDATE, Bundle.EMPTY)
             navController.popBackStack()
         },
-        onCancelClicked = {
-            navController.popBackStack()
-        },
+        onCancelClicked = { navController.popBackStack() },
     )
 }
 
 @Composable
-private fun UpdateScreen(
-    onConfirmClicked: () -> Unit = {},
-    onCancelClicked: () -> Unit = {},
-) {
+private fun UpdateScreen(onConfirmClicked: () -> Unit = {}, onCancelClicked: () -> Unit = {}) {
     AlertDialog(
         title = stringResource(R.string.app_update_dialog_title),
         content = {
@@ -63,16 +58,12 @@ private fun UpdateScreen(
         onConfirmClicked = onConfirmClicked,
         onDismissClicked = onCancelClicked,
         onDismiss = onCancelClicked,
-        properties = DialogProperties(
-            dismissOnClickOutside = false,
-        )
+        properties = DialogProperties(dismissOnClickOutside = false),
     )
 }
 
 @PreviewLightDark
 @Composable
 private fun UpdateScreenPreview() {
-    PreviewBackground {
-        UpdateScreen()
-    }
+    PreviewBackground { UpdateScreen() }
 }

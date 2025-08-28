@@ -24,7 +24,6 @@ import com.blacksquircle.ui.internal.provider.inappupdate.InAppUpdate
 
 @Composable
 internal fun rememberInAppUpdate(): InAppUpdate {
-    val activity = LocalActivity.current
-        ?: error("CompositionLocal LocalActivity not present")
+    val activity = LocalActivity.current ?: error("CompositionLocal LocalActivity not present")
     return remember { InAppUpdateImpl(activity) }
 }

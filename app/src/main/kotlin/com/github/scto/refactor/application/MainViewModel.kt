@@ -26,6 +26,8 @@ import com.blacksquircle.ui.core.settings.SettingsManager.Companion.KEY_EDITOR_T
 import com.blacksquircle.ui.core.settings.SettingsManager.Companion.KEY_FULLSCREEN_MODE
 import com.blacksquircle.ui.feature.editor.api.interactor.EditorInteractor
 import com.blacksquircle.ui.feature.themes.api.interactor.ThemeInteractor
+import javax.inject.Inject
+import javax.inject.Provider
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
@@ -37,10 +39,10 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
-import javax.inject.Provider
 
-internal class MainViewModel @Inject constructor(
+internal class MainViewModel
+@Inject
+constructor(
     private val settingsManager: SettingsManager,
     private val themeInteractor: ThemeInteractor,
     private val editorInteractor: EditorInteractor,
@@ -63,9 +65,7 @@ internal class MainViewModel @Inject constructor(
     }
 
     fun onUpdateAvailable() {
-        viewModelScope.launch {
-            _viewEvent.send(ViewEvent.Navigation(UpdateDialog))
-        }
+        viewModelScope.launch { _viewEvent.send(ViewEvent.Navigation(UpdateDialog)) }
     }
 
     fun onNewIntent(intent: Intent) {
@@ -79,44 +79,31 @@ internal class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val colorScheme = themeInteractor.loadTheme(settingsManager.editorTheme)
-                _viewState.update {
-                    it.copy(colorScheme = colorScheme)
-                }
+                _viewState.update { it.copy(colorScheme = colorScheme) }
 
                 /**
-                 * Wait until new theme applied.
-                 * Remove when pausable composition is enabled by default?
+                 * Wait until new theme applied. Remove when pausable composition is enabled by
+                 * default?
                  */
                 delay(800)
 
-                _viewState.update {
-                    it.copy(isLoading = false)
-                }
+                _viewState.update { it.copy(isLoading = false) }
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
                 Timber.e(e, e.message)
                 _viewEvent.send(ViewEvent.Toast(e.message.orEmpty()))
 
-                _viewState.update {
-                    it.copy(
-                        colorScheme = null,
-                        isLoading = false,
-                    )
-                }
+                _viewState.update { it.copy(colorScheme = null, isLoading = false) }
             }
         }
     }
 
     private fun registerOnPreferenceChangeListeners() {
-        settingsManager.registerListener(KEY_EDITOR_THEME) {
-            loadTheme()
-        }
+        settingsManager.registerListener(KEY_EDITOR_THEME) { loadTheme() }
         settingsManager.registerListener(KEY_FULLSCREEN_MODE) {
             viewModelScope.launch {
-                _viewState.update {
-                    it.copy(fullscreenMode = settingsManager.fullScreenMode)
-                }
+                _viewState.update { it.copy(fullscreenMode = settingsManager.fullScreenMode) }
             }
         }
     }
@@ -136,8 +123,7 @@ internal class MainViewModel @Inject constructor(
 
     class Factory : ViewModelProvider.Factory {
 
-        @Inject
-        lateinit var viewModelProvider: Provider<MainViewModel>
+        @Inject lateinit var viewModelProvider: Provider<MainViewModel>
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -7,9 +7,10 @@ import androidx.room.RoomDatabase
 @Database(
     entities = [RepositoryEntity::class],
     version = 2, // 1. Version erhöht
-    autoMigrations = [
-        AutoMigration(from = 1, to = 2) // 2. Auto-Migration deklariert
-    ]
+    autoMigrations =
+        [
+            AutoMigration(from = 1, to = 2) // 2. Auto-Migration deklariert
+        ],
 )
 abstract class GitDatabase : RoomDatabase() {
     abstract fun repositoryDao(): RepositoryDao

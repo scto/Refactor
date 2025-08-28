@@ -99,23 +99,15 @@ internal fun MainScreen(
 
     val activity = LocalActivity.current as? ComponentActivity
     DisposableEffect(Unit) {
-        val consumer = Consumer<Intent> { intent ->
-            viewModel.onNewIntent(intent)
-        }
+        val consumer = Consumer<Intent> { intent -> viewModel.onNewIntent(intent) }
         activity?.addOnNewIntentListener(consumer)
-        onDispose {
-            activity?.removeOnNewIntentListener(consumer)
-        }
+        onDispose { activity?.removeOnNewIntentListener(consumer) }
     }
 
     LaunchedEffect(Unit) {
         if (savedInstanceState == null) {
-            activity?.intent?.let { intent ->
-                viewModel.onNewIntent(intent)
-            }
-            inAppUpdate.checkForUpdates {
-                viewModel.onUpdateAvailable()
-            }
+            activity?.intent?.let { intent -> viewModel.onNewIntent(intent) }
+            inAppUpdate.checkForUpdates { viewModel.onUpdateAvailable() }
         }
     }
 
@@ -129,9 +121,7 @@ internal fun MainScreen(
         }
     }
 
-    NavResultEffect(KEY_INSTALL_UPDATE) {
-        inAppUpdate.installUpdate()
-    }
+    NavResultEffect(KEY_INSTALL_UPDATE) { inAppUpdate.installUpdate() }
 
     LaunchedEffect(viewState.fullscreenMode) {
         activity?.window?.fullscreenMode(viewState.fullscreenMode)
@@ -142,8 +132,6 @@ internal fun MainScreen(
         enter = EnterTransition.None,
         exit = fadeOut(),
     ) {
-        SquircleTheme(darkTheme = true) {
-            SplashScreen()
-        }
+        SquircleTheme(darkTheme = true) { SplashScreen() }
     }
 }

@@ -1,7 +1,6 @@
 package com.github.scto.refactor.selfupdate
 
 import android.content.Context
-
 import timber.log.Timber
 
 class UpdateManager(private val context: Context) {
@@ -41,6 +40,7 @@ class UpdateManager(private val context: Context) {
 
     /**
      * Vergleicht zwei Versions-Strings.
+     *
      * @return true, wenn latestVersion neuer ist als currentVersion.
      */
     private fun isNewerVersion(latestVersion: String, currentVersion: String): Boolean {

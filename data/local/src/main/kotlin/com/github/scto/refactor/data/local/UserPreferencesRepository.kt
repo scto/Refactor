@@ -22,41 +22,33 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  * Repository for handling user preferences stored in DataStore.
  *
- * This class provides methods to get and set user-specific settings like API keys,
- * selected themes, etc. It uses Dagger Hilt for dependency injection to get the
- * application context.
+ * This class provides methods to get and set user-specific settings like API keys, selected themes,
+ * etc. It uses Dagger Hilt for dependency injection to get the application context.
  *
  * @property context The application context provided by Hilt.
  */
 @Singleton
-class UserPreferencesRepository @Inject constructor(
-    @ApplicationContext private val context: Context
-) {
+class UserPreferencesRepository
+@Inject
+constructor(@ApplicationContext private val context: Context) {
 
-    /**
-     * Flow representing the user's stored API key.
-     * Emits the latest value whenever it changes.
-     */
-    val apiKey: Flow<String?> = context.dataStore.data // KORRIGIERT: context. hinzugefügt
-        .map { preferences ->
-            preferences[API_KEY]
-        }
+    /** Flow representing the user's stored API key. Emits the latest value whenever it changes. */
+    val apiKey: Flow<String?> =
+        context.dataStore.data // KORRIGIERT: context. hinzugefügt
+            .map { preferences -> preferences[API_KEY] }
 
-    /**
-     * Flow representing the user's selected theme.
-     */
-    val theme: Flow<String?> = context.dataStore.data // KORRIGIERT: context. hinzugefügt
-        .map { preferences ->
-            preferences[THEME]
-        }
+    /** Flow representing the user's selected theme. */
+    val theme: Flow<String?> =
+        context.dataStore.data // KORRIGIERT: context. hinzugefügt
+            .map { preferences -> preferences[THEME] }
 
     /**
      * Suspended function to update the API key in DataStore.
@@ -89,6 +81,5 @@ class UserPreferencesRepository @Inject constructor(
 
 // Top-level property to create a single instance of DataStore for the application.
 // This is the recommended way to instantiate DataStore.
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
-    name = "user_preferences"
-)
+private val Context.dataStore: DataStore<Preferences> by
+    preferencesDataStore(name = "user_preferences")

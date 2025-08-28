@@ -13,23 +13,18 @@ fun SettingsScreen(
 ) {
     val navController = rememberNavController()
 
-    NavHost(
-        navController = navController,
-        startDestination = SettingsScreen.Main.route
-    ) {
-        composable(SettingsScreen.Main.route) {
-            MainSettingsScreen(navController = navController)
-        }
+    NavHost(navController = navController, startDestination = SettingsScreen.Main.route) {
+        composable(SettingsScreen.Main.route) { MainSettingsScreen(navController = navController) }
         composable(SettingsScreen.Theme.route) {
             ThemeSettingsScreen(
                 viewModel = viewModel,
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
             )
         }
         composable(SettingsScreen.About.route) {
             AboutSettingsScreen(
                 viewModel = viewModel,
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
             )
         }
     }

@@ -17,8 +17,6 @@ package com.github.scto.refactor.ui.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -36,10 +34,7 @@ import com.github.scto.refactor.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainSettingsScreen(
-    onBackClick: () -> Unit,
-    onNavigate: (String) -> Unit,
-) {
+fun MainSettingsScreen(onBackClick: () -> Unit, onNavigate: (String) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -53,7 +48,7 @@ fun MainSettingsScreen(
                     }
                 },
             )
-        },
+        }
     ) { contentPadding ->
         Column(modifier = Modifier.padding(contentPadding)) {
             ListItem(

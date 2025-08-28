@@ -12,22 +12,23 @@ import com.github.scto.refactor.features.git.data.local.db.RepositoryDao
 import com.github.scto.refactor.features.git.data.local.db.RepositoryEntity
 import com.github.scto.refactor.features.git.ui.GitContract.*
 import com.google.protobuf.ByteString
+import java.io.File
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
-import java.io.File
 
 class GitViewModel(
     context: Context,
     private val repositoryDao: RepositoryDao,
     private val userSettingsStore: DataStore<UserSettings>,
     private val cryptoManager: CryptoManager,
-    private val gitClient: GitClient = JGitClient()
+    private val gitClient: GitClient = JGitClient(),
 ) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<GitUiState> = MutableStateFlow(
-        GitUiState.Success(localPath = File(context.filesDir, "git_repo").absolutePath)
-    )
+    private val _uiState: MutableStateFlow<GitUiState> =
+        MutableStateFlow(
+            GitUiState.Success(localPath = File(context.filesDir, "git_repo").absolutePath)
+        )
     val uiState: StateFlow<GitUiState> = _uiState.asStateFlow()
 
     private val _effect = MutableSharedFlow<GitEffect>()
@@ -42,7 +43,9 @@ class GitViewModel(
                         email = settings.email,
                         credentialsUsername = settings.username,
                         // KORRIGIERT: Entschlüsselt das Token beim Laden
-                        credentialsToken = if (settings.credentials.isEmpty) "" else cryptoManager.decrypt(settings.credentials.toByteArray())
+                        credentialsToken =
+                            if (settings.credentials.isEmpty) ""
+                            else cryptoManager.decrypt(settings.credentials.toByteArray()),
                     ) ?: it
                 }
             }
@@ -52,20 +55,25 @@ class GitViewModel(
     fun setEvent(event: GitEvent) {
         viewModelScope.launch {
             when (event) {
-                is GitEvent.OnRepoUrlChange -> updateSuccessState { it.copy(repoUrl = event.newUrl) }
-                is GitEvent.OnLocalPathChange -> updateSuccessState { it.copy(localPath = event.newPath) }
-                is GitEvent.OnBranchNameChange -> updateSuccessState { it.copy(branchName = event.newName) }
+                is GitEvent.OnRepoUrlChange ->
+                    updateSuccessState { it.copy(repoUrl = event.newUrl) }
+                is GitEvent.OnLocalPathChange ->
+                    updateSuccessState { it.copy(localPath = event.newPath) }
+                is GitEvent.OnBranchNameChange ->
+                    updateSuccessState { it.copy(branchName = event.newName) }
                 // KORRIGIERT: Fehlende und falsche Event-Handler angepasst
                 is GitEvent.OnEmailChange -> updateSuccessState { it.copy(email = event.newEmail) }
-                is GitEvent.OnCredentialsUsernameChange -> updateSuccessState { it.copy(credentialsUsername = event.username) }
-                is GitEvent.OnCredentialsTokenChange -> updateSuccessState { it.copy(credentialsToken = event.token) }
+                is GitEvent.OnCredentialsUsernameChange ->
+                    updateSuccessState { it.copy(credentialsUsername = event.username) }
+                is GitEvent.OnCredentialsTokenChange ->
+                    updateSuccessState { it.copy(credentialsToken = event.token) }
                 GitEvent.OnCloneClick -> cloneRepository()
                 GitEvent.OnPullClick -> pullChanges()
                 GitEvent.SaveSettings -> saveUserSettings()
             }
         }
     }
-    
+
     private suspend fun cloneRepository() {
         val currentState = _uiState.value
         if (currentState !is GitUiState.Success) return
@@ -77,17 +85,17 @@ class GitViewModel(
                 directory.deleteRecursively()
             }
             gitClient.clone(currentState.repoUrl, directory, branch = currentState.branchName)
-            
-            val repositoryEntity = RepositoryEntity(
-                repoUrl = currentState.repoUrl,
-                localPath = currentState.localPath,
-                branchName = currentState.branchName
-            )
+
+            val repositoryEntity =
+                RepositoryEntity(
+                    repoUrl = currentState.repoUrl,
+                    localPath = currentState.localPath,
+                    branchName = currentState.branchName,
+                )
             repositoryDao.insertRepository(repositoryEntity)
-            
+
             _uiState.value = currentState.copy(statusMessage = "Clone erfolgreich!")
             _effect.emit(GitEffect.ShowToast("Repository erfolgreich geklont und gespeichert."))
-            
         } catch (e: Exception) {
             _uiState.value = GitUiState.Error("Fehler beim Clonen: ${e.message}")
         }
@@ -96,14 +104,21 @@ class GitViewModel(
     private suspend fun pullChanges() {
         val currentState = _uiState.value
         if (currentState !is GitUiState.Success) return
-        
+
         _uiState.value = GitUiState.Loading
         try {
-            val credentialsProvider = if (currentState.credentialsUsername.isNotBlank() && currentState.credentialsToken.isNotBlank()) {
-                UsernamePasswordCredentialsProvider(currentState.credentialsUsername, currentState.credentialsToken)
-            } else {
-                null
-            }
+            val credentialsProvider =
+                if (
+                    currentState.credentialsUsername.isNotBlank() &&
+                        currentState.credentialsToken.isNotBlank()
+                ) {
+                    UsernamePasswordCredentialsProvider(
+                        currentState.credentialsUsername,
+                        currentState.credentialsToken,
+                    )
+                } else {
+                    null
+                }
 
             gitClient.pull(File(currentState.localPath), credentialsProvider)
             _uiState.value = currentState.copy(statusMessage = "Pull erfolgreich!")
@@ -111,16 +126,17 @@ class GitViewModel(
             _uiState.value = GitUiState.Error("Fehler beim Pullen: ${e.message}")
         }
     }
-    
+
     private suspend fun saveUserSettings() {
         val currentState = _uiState.value
         if (currentState !is GitUiState.Success) return
-        
+
         // KORRIGIERT: Verschlüsselt nur das Token/Passwort
         val encryptedCredentials = cryptoManager.encrypt(currentState.credentialsToken)
-        
+
         userSettingsStore.updateData { settings ->
-            settings.toBuilder()
+            settings
+                .toBuilder()
                 // Speichert den Benutzernamen im Klartext und das Token verschlüsselt
                 .setUsername(currentState.credentialsUsername)
                 .setEmail(currentState.email)
@@ -131,8 +147,6 @@ class GitViewModel(
     }
 
     private fun updateSuccessState(update: (GitUiState.Success) -> GitUiState.Success) {
-        _uiState.update {
-            (it as? GitUiState.Success)?.let(update) ?: it
-        }
+        _uiState.update { (it as? GitUiState.Success)?.let(update) ?: it }
     }
 }

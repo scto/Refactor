@@ -42,18 +42,19 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [
-        AppModule::class,
-        CoreModule::class,
-        EditorApiModule::class,
-        ExplorerApiModule::class,
-        FontsApiModule::class,
-        GitApiModule::class,
-        ServersApiModule::class,
-        ShortcutsApiModule::class,
-        TerminalApiModule::class,
-        ThemesApiModule::class,
-    ],
+    modules =
+        [
+            AppModule::class,
+            CoreModule::class,
+            EditorApiModule::class,
+            ExplorerApiModule::class,
+            FontsApiModule::class,
+            GitApiModule::class,
+            ServersApiModule::class,
+            ShortcutsApiModule::class,
+            TerminalApiModule::class,
+            ThemesApiModule::class,
+        ]
 )
 internal interface AppComponent :
     CoreApiDepsProvider,
@@ -78,9 +79,7 @@ internal interface AppComponent :
         private var component: AppComponent? = null
 
         fun buildOrGet(context: Context): AppComponent {
-            return component ?: DaggerAppComponent.factory().create(context).also {
-                component = it
-            }
+            return component ?: DaggerAppComponent.factory().create(context).also { component = it }
         }
 
         fun release() {

@@ -1,17 +1,13 @@
 package com.github.scto.refactor.core.gemini.di
 
+// import com.github.scto.refactor.core.gemini.processors.DependencyAnalysisProcessor
 import com.github.scto.refactor.core.gemini.arch.Processor
 import com.github.scto.refactor.core.gemini.core.RefactoringOrchestrator
 import com.github.scto.refactor.core.gemini.processors.*
-//import com.github.scto.refactor.core.gemini.processors.DependencyAnalysisProcessor
-
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
-
 import javax.inject.Singleton
 
 @Module
@@ -22,17 +18,17 @@ object GeminiModule {
     @Singleton
     fun provideRefactoringProcessors(
         dependencyAnalysisProcessor: DependencyAnalysisProcessor,
-        gradleProcessor : GradleProcessor,
-        hardcodedStringProcessor : HardcodedStringProcessor,
-        javaToKotlinProcessor : JavaToKotlinProcessor,
-        kotlinStyleProcessor : KotlinStyleProcessor,
-        manifestProcessor : ManifestProcessor,
-        packageNameProcessor : PackageNameProcessor,
-        selfModernizationProcessor : SelfModernizationProcessor,
-        svgToAvdProcessor : SvgToAvdProcessor,
-        themeProcessor : ThemeProcessor,
-        xmlToComposeProcessor : XmlToComposeProcessor,
-        codeAnalysisProcessor : CodeAnalysisProcessor
+        gradleProcessor: GradleProcessor,
+        hardcodedStringProcessor: HardcodedStringProcessor,
+        javaToKotlinProcessor: JavaToKotlinProcessor,
+        kotlinStyleProcessor: KotlinStyleProcessor,
+        manifestProcessor: ManifestProcessor,
+        packageNameProcessor: PackageNameProcessor,
+        selfModernizationProcessor: SelfModernizationProcessor,
+        svgToAvdProcessor: SvgToAvdProcessor,
+        themeProcessor: ThemeProcessor,
+        xmlToComposeProcessor: XmlToComposeProcessor,
+        codeAnalysisProcessor: CodeAnalysisProcessor,
         // Fügen Sie hier weitere Prozessoren hinzu
     ): List<Processor> {
         // Explizite Typdeklaration, um den Type Mismatch zu beheben
@@ -41,20 +37,22 @@ object GeminiModule {
             gradleProcessor,
             hardcodedStringProcessor,
             javaToKotlinProcessor,
-            kotlinStyleProcessor ,
+            kotlinStyleProcessor,
             manifestProcessor,
             packageNameProcessor,
             selfModernizationProcessor,
             svgToAvdProcessor,
             themeProcessor,
             xmlToComposeProcessor,
-            codeAnalysisProcessor
+            codeAnalysisProcessor,
         )
     }
 
     @Provides
     @Singleton
-    fun provideRefactoringOrchestrator(processors: List<@JvmSuppressWildcards Processor>): RefactoringOrchestrator {
+    fun provideRefactoringOrchestrator(
+        processors: List<@JvmSuppressWildcards Processor>
+    ): RefactoringOrchestrator {
         return RefactoringOrchestrator(processors)
     }
     /*

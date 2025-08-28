@@ -18,5 +18,6 @@ package com.blacksquircle.ui.internal.provider.inappupdate
 
 internal interface InAppUpdate {
     fun checkForUpdates(onUpdateAvailable: () -> Unit)
+
     fun installUpdate()
 }

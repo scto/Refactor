@@ -5,5 +5,5 @@ data class RefactoringState(
     val currentStep: String = "Bereit",
     val logs: List<String> = emptyList(),
     val isRunning: Boolean = false,
-    val styleSuggestions: List<StyleSuggestion> = emptyList()
+    val styleSuggestions: List<StyleSuggestion> = emptyList(),
 )

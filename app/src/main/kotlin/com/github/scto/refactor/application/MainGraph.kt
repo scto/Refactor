@@ -22,11 +22,8 @@ import androidx.navigation.compose.dialog
 import com.blacksquircle.ui.application.update.UpdateScreen
 import kotlinx.serialization.Serializable
 
-@Serializable
-data object UpdateDialog
+@Serializable data object UpdateDialog
 
 fun NavGraphBuilder.mainGraph(navController: NavHostController) {
-    dialog<UpdateDialog> {
-        UpdateScreen(navController)
-    }
+    dialog<UpdateDialog> { UpdateScreen(navController) }
 }

@@ -28,8 +28,6 @@ internal class MainActivity : ComponentActivity() {
         installSplashScreen()
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
-        setContent {
-            MainScreen(savedInstanceState)
-        }
+        setContent { MainScreen(savedInstanceState) }
     }
 }

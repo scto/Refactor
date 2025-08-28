@@ -39,7 +39,8 @@ import com.blacksquircle.ui.feature.themes.api.internal.ThemesApiProvider
 import com.blacksquircle.ui.internal.di.AppComponent
 import timber.log.Timber
 
-internal class SquircleApp : Application(),
+internal class SquircleApp :
+    Application(),
     CoreApiProvider,
     EditorApiProvider,
     ExplorerApiProvider,
