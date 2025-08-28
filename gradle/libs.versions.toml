@@ -47,7 +47,7 @@ kotlinxSerializationJson = "1.8.0"
 ksp = "2.0.0-1.0.24"
 ktor = "2.3.11"
 
-coil = "2.5.0"
+coil = "2.7.0"
 
 hilt = "2.50"
 hiltExt = "1.1.0"
