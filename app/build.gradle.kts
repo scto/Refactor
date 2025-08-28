@@ -37,6 +37,10 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+		debug {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
     }
 
     compileOptions {
@@ -47,17 +51,18 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
-
+ 
     buildFeatures {
-        compose = true
+        //compose = true
         buildConfig = true
     }
-
+	
+    /*
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.8"
     }
-
+    */
+	
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
