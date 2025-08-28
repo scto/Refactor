@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.github.scto.refactor.features.git";
+option java_multiple_files = true;
+
+message UserSettings {
+  string username = 1;
+  string email = 2;
+  // GEÄNDERT: von string zu bytes für verschlüsselte Daten
+  bytes credentials = 3;
+}
