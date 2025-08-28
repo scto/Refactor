@@ -10,7 +10,7 @@ on:
       minimum_runs:
         description: 'The minimum runs to keep for each workflow.'
         required: true
-        default: '4'
+        default: '1'
 
 jobs:
   deleteWorkflowRuns:
