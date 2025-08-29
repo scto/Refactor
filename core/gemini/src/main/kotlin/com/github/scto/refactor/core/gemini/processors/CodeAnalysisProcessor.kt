@@ -1,10 +1,11 @@
 package com.github.scto.refactor.core.gemini.processors
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
 import com.github.scto.refactor.core.gemini.arch.Processor
 import com.github.scto.refactor.core.gemini.config.RefactoringConfig
 import com.github.scto.refactor.core.gemini.ui.RefactoringOption
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 object CodeAnalysisProcessor : Processor {
     // KORRIGIERT: ID an den neuen Enum-Namen angepasst.

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2025, S.C.T.O
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.github.scto.refactor.ui.settings
 
 import androidx.compose.foundation.layout.Column
@@ -26,6 +41,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+
+import com.github.scto.refactor.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,12 +53,14 @@ fun ThemeSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Erscheinungsbild") },
+				title = { Text(stringResource(id = R.string.settings_about_title)) },
+                //title = { Text("Erscheinungsbild") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Zurück",
+							contentDescription = { Text(stringResource(id = R.string.action_back)) },
+                            //contentDescription = "Zurück",
                         )
                     }
                 },
@@ -50,9 +70,14 @@ fun ThemeSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
         Column(modifier = Modifier.padding(padding)) {
             // Abschnitt für die Theme-Auswahl
             Text(
+				Text(stringResource(id = R.string.setting_theme_title)),
+				style = MaterialTheme.typography.titleSmall,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+				/*
                 text = "Theme",
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+				*/
             )
             ThemeSetting.values().forEach { theme ->
                 ThemeOptionRow(
@@ -66,9 +91,11 @@ fun ThemeSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
 
             // Abschnitt für Dynamic Color mit einem Switch
             ListItem(
+				headlineContent = { Text(stringResource(id = R.string.setting_theme_dynamic_colors_title)) },
                 headlineContent = { Text("Dynamische Farben") },
                 supportingContent = {
-                    Text("Farben aus dem Hintergrundbild verwenden (nur Android 12+)")
+					Text(stringResource(id = R.string.setting_theme_dynamic_colors_supporting_content))
+                    //Text("Farben aus dem Hintergrundbild verwenden (nur Android 12+)")
                 },
                 trailingContent = {
                     Switch(

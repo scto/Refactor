@@ -104,6 +104,8 @@ dependencies {
 	
 	implementation(libs.coil.kt.compose)
 	implementation(libs.coil.kt.svg)
+	
+	implementation(libs.inapp.update.compose)
 }
 
 fun getApiKey(): String {

@@ -1,12 +1,15 @@
 package com.github.scto.refactor.core.gemini.processors
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
+import timber.log.Timber
+
+import java.io.File
+
 import com.github.scto.refactor.core.gemini.arch.Processor
 import com.github.scto.refactor.core.gemini.config.RefactoringConfig
 import com.github.scto.refactor.core.gemini.ui.RefactoringOption
-import java.io.File
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import timber.log.Timber
 
 object GradleProcessor : Processor {
     override val id = RefactoringOption.REFACTOR_GRADLE

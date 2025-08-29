@@ -1,20 +1,24 @@
 package com.github.scto.refactor.core.gemini.processors
 
-import com.github.scto.refactor.core.gemini.arch.Processor
-import com.github.scto.refactor.core.gemini.config.RefactoringConfig
-import com.github.scto.refactor.core.gemini.ui.RefactoringOption
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
-import java.io.File
-import javax.inject.Inject
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+
 import org.json.JSONObject
+
+import java.io.File
+import javax.inject.Inject
+
+import com.github.scto.refactor.core.gemini.arch.Processor
+import com.github.scto.refactor.core.gemini.config.RefactoringConfig
+import com.github.scto.refactor.core.gemini.ui.RefactoringOption
 
 /** Analysiert die Abhängigkeiten des Projekts und schlägt Aktualisierungen vor. */
 class DependencyAnalysisProcessor @Inject constructor() : Processor {

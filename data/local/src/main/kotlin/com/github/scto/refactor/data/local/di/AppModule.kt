@@ -16,13 +16,16 @@
 package com.github.scto.refactor.data.local.di
 
 import android.content.Context
-import com.github.scto.refactor.data.local.UserPreferencesRepository
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+
 import javax.inject.Singleton
+
+import com.github.scto.refactor.data.local.UserPreferencesRepository
 
 @Module
 @InstallIn(SingletonComponent::class)

@@ -38,7 +38,7 @@ fun MainSettingsScreen(onBackClick: () -> Unit, onNavigate: (String) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(id = R.string.settings_title)) },
+                title = { Text(stringResource(id = R.string.settings_main_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(

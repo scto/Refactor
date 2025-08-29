@@ -14,8 +14,11 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<network-security-config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">jetbrains.com</domain>
-    </domain-config>
-</network-security-config>
+<resources>
+    <string name="onboarding_main_title">Willkommen bei Refactor</string>
+	<string name="onboarding_main_description">Dein intelligenter Assistent zur Modernisierung von Android-Projekten.</string>
+	<string name="onboarding_processors_title">Prozessoren auswählen</string>
+	<string name="onboarding_main_description">Wähle aus einer Vielzahl von Prozessoren, um deinen Code zu analysieren und zu verbessern.</string>
+	<string name="onboarding_run_title">Los geht's!</string>
+	<string name="onboarding_run_description">Star</string>
+</resources>

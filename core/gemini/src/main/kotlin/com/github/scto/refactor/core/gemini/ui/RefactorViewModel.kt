@@ -2,15 +2,19 @@ package com.github.scto.refactor.core.gemini.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.scto.refactor.core.gemini.config.RefactoringConfig
-import com.github.scto.refactor.core.gemini.core.RefactoringOrchestrator
-import com.github.scto.refactor.core.gemini.model.StyleSuggestion
+
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.io.File
-import javax.inject.Inject
+
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+
+import java.io.File
+import javax.inject.Inject
+
+import com.github.scto.refactor.core.gemini.config.RefactoringConfig
+import com.github.scto.refactor.core.gemini.core.RefactoringOrchestrator
+import com.github.scto.refactor.core.gemini.model.StyleSuggestion
 
 @HiltViewModel
 class RefactorViewModel @Inject constructor(private val orchestrator: RefactoringOrchestrator) :

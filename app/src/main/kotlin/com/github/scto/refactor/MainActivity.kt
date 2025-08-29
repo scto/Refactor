@@ -9,11 +9,20 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+
 import androidx.hilt.navigation.compose.hiltViewModel
+import dagger.hilt.android.AndroidEntryPoint
+
+import se.warting.inappupdate.compose.material.MaterialRequireLatestVersion
+
+import com.github.scto.refactor.R
 import com.github.scto.refactor.ui.home.HomeScreen
 import com.github.scto.refactor.ui.onboarding.OnboardingScreen
 import com.github.scto.refactor.ui.theme.RefactorTheme
-import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -29,6 +38,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
+					MaterialRequireLatestVersion {
+                        Welcome()
+                    }
                     if (onboardingCompleted) {
                         HomeScreen()
                     } else {
@@ -40,4 +52,9 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+
+@Composable
+fun Welcome() {
+	Text(stringResource(id = R.string.update_message))
 }

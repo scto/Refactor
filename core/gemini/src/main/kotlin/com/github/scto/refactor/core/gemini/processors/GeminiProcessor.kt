@@ -1,9 +1,11 @@
 package com.github.scto.refactor.core.gemini.processors
 
-import com.github.scto.refactor.core.gemini.BuildConfig
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.generationConfig
+
 import timber.log.Timber
+
+import com.github.scto.refactor.core.gemini.BuildConfig
 
 object GeminiProcessor {
     private val apiKey = BuildConfig.GEMINI_API_KEY.ifBlank { System.getenv("GEMINI_API_KEY") }
