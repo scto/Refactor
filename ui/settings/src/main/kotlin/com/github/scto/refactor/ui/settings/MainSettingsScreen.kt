@@ -30,6 +30,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+
 import com.github.scto.refactor.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,6 +55,10 @@ fun MainSettingsScreen(onBackClick: () -> Unit, onNavigate: (String) -> Unit) {
             ListItem(
                 headlineContent = { Text(stringResource(id = R.string.settings_theme_title)) },
                 modifier = Modifier.clickable { onNavigate(THEME_SETTINGS_ROUTE) },
+            )
+			ListItem(
+                headlineContent = { Text(stringResource(id = R.string.settings_debug_title)) },
+                modifier = Modifier.clickable { onNavigate(DEBUG_SETTINGS_ROUTE) },
             )
             ListItem(
                 headlineContent = { Text(stringResource(id = R.string.settings_about_title)) },

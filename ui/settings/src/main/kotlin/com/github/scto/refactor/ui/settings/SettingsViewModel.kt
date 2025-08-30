@@ -42,9 +42,12 @@ constructor(private val userPreferencesRepository: UserPreferencesRepository) : 
     val uiState: StateFlow<SettingsUiState> =
         combine(
                 userPreferencesRepository.theme,
-                userPreferencesRepository
-                    .useDynamicColor, // Annahme: Dieser Flow existiert im Repository
-            ) { themeName, useDynamicColor ->
+                userPreferencesRepository.dynamicColor, // Annahme: Dieser Flow existiert im Repository
+				userPreferencesRepository.apiKey,
+				userPreferencesRepository.debug,
+				userPreferencesRepository.appVersion,
+				
+            ) { themeName, dynamicColor, apiKey, debug, appVersion, ->
                 SettingsUiState(
                     theme =
                         try {
@@ -52,7 +55,10 @@ constructor(private val userPreferencesRepository: UserPreferencesRepository) : 
                         } catch (e: IllegalArgumentException) {
                             ThemeSetting.SYSTEM // Fallback, falls der Wert ungültig ist
                         },
-                    useDynamicColor = useDynamicColor,
+                    dynamicColor = dynamicColor,
+					apiKey = apiKey,
+					debug = debug,
+					appVersion = appVersion,
                 )
             }
             .stateIn(
@@ -70,10 +76,19 @@ constructor(private val userPreferencesRepository: UserPreferencesRepository) : 
                 }
                 is SettingsUiEvent.OnDynamicColorChanged -> {
                     // Speichert den neuen Boolean-Wert für die dynamischen Farben
-                    userPreferencesRepository.saveUseDynamicColor(event.useDynamicColor)
+                    userPreferencesRepository.saveDynamicColor(event.dynamicColor)
+                }
+				is SettingsUiEvent.OnApiKeyChanged -> {
+                    // Speichert den neuen Boolean-Wert für die dynamischen Farben
+                    userPreferencesRepository.saveApiKey(event.apiKey)
+                }
+				is SettingsUiEvent.OnDebugChanged -> {
+                    // Speichert den neuen Boolean-Wert für die dynamischen Farben
+                    userPreferencesRepository.saveDebug(event.debug)
                 }
                 is SettingsUiEvent.OnAppVersionChanged -> {
                     // Hier könnte zukünftige Logik implementiert werden
+					userPreferencesRepository.saveAppVersion(event.appVersion)
                 }
             }
         }

@@ -53,7 +53,7 @@ fun ThemeSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
     Scaffold(
         topBar = {
             TopAppBar(
-				title = { Text(stringResource(id = R.string.settings_about_title)) },
+				title = { Text(stringResource(id = R.string.settings_theme_title)) },
                 //title = { Text("Erscheinungsbild") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
@@ -92,17 +92,17 @@ fun ThemeSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
             // Abschnitt für Dynamic Color mit einem Switch
             ListItem(
 				headlineContent = { Text(stringResource(id = R.string.setting_theme_dynamic_colors_title)) },
-                headlineContent = { Text("Dynamische Farben") },
+                //headlineContent = { Text("Dynamische Farben") },
                 supportingContent = {
 					Text(stringResource(id = R.string.setting_theme_dynamic_colors_supporting_content))
                     //Text("Farben aus dem Hintergrundbild verwenden (nur Android 12+)")
                 },
                 trailingContent = {
                     Switch(
-                        checked = uiState.useDynamicColor,
-                        onCheckedChange = { useDynamicColor ->
+                        checked = uiState.dynamicColor,
+                        onCheckedChange = { dynamicColor ->
                             viewModel.handleEvent(
-                                SettingsUiEvent.OnDynamicColorChanged(useDynamicColor)
+                                SettingsUiEvent.OnDynamicColorChanged(dynamicColor)
                             )
                         },
                     )

@@ -5,6 +5,7 @@ androidGradlePlugin = "8.12.2"
 androidProtoGradlePlugin = "0.9.4"
 androidxActivity = "1.8.2"
 androidxAppCompat = "1.6.1"
+androidxSwipeRefreshLayout = "1.1.0"
 androidxComposeBom = "2023.10.01"
 androidxComposeCompiler = "1.5.6"
 androidxComposeFoundation = "1.8.0-alpha07"
@@ -46,6 +47,18 @@ kotlinxSerializationJson = "1.8.0"
 #ksp = "2.0.21-1.0.27"
 ksp = "2.0.0-1.0.24"
 ktor = "2.3.11"
+koog = "0.2.1"
+
+eventbus = "3.3.1"
+glide = "4.16.0"
+bsh = "3.0.0-SNAPSHOT"
+ktsh = "1.0.0"
+leakcanaryAndroid = "2.14"
+lsp4j = "0.23.1"
+
+kermit = "2.0.4"
+buildkonfig = "0.15.1"
+russhwolfSettings = "1.1.1"
 
 coil = "2.5.0"
 
@@ -70,18 +83,29 @@ spotless = "7.2.1"
 #spotless = "6.25.0" # Version für Spotless hinzufügen
 inApp-updateCompose = "1.3.1"
 
+# App Module
+android-applicationId = "com.github.scto.refactor"
+android-compileSdk = "34"
+android-minSdk = "24"
+android-targetSdk = "34"
+android-versionCode = "100"
+android-versionName = "1.0.0"
+packageNameCore = "com.github.scto.refactor.core.gemini"
+
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
-accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
+accompanist-permissions = { group = "com.google.accompanist", name = "accompanist-permissions", version.ref = "accompanist" }
 accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanist" }
 accompanist-pager-indicators = { group = "com.google.accompanist", name = "accompanist-pager-indicators", version.ref = "accompanist" }
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
+accompanist-swiperefresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "accompanist" }
 accompanist-testharness = { group = "com.google.accompanist", name = "accompanist-testharness", version.ref = "accompanist" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
 # Compose
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "androidxSwipeRefreshLayout" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidxComposeFoundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
@@ -163,11 +187,23 @@ ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref =
 ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor"}
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor"}
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor"}
+ktor-client-logging = { group = "io.ktor" , name = "ktor-client-logging", version.ref = "ktor"}
+
+# Logging
+kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit"}
 
 # Common
 jgit = { group = "org.eclipse.jgit", name = "org.eclipse.jgit", version.ref = "jgit" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 json = { group = "org.json", name = "json", version.ref = "json" }
+eventbus = { group = "org.greenrobot", name = "eventbus", version.ref = "eventbus" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+bsh = { group = "org.beanshell", name = "bsh", version.ref = "bsh" }
+ktsh = { group = "com.jaredrummler", name = "ktsh", version.ref = "ktsh" }
+leakcanary-android = { group = "com.squareup.leakcanary", name = "leakcanary-android", version.ref = "leakcanaryAndroid" }
+lsp4j = { group = "org.eclipse.lsp4j", name = "org.eclipse.lsp4j", version.ref = "lsp4j" }
+utilcode = { group = "com.blankj", name = "utilcodex", version = "1.31.1" }
+
 
 # Retrofit
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
@@ -199,6 +235,12 @@ kotlinx-coroutines-guava = { group = "org.jetbrains.kotlinx", name = "kotlinx-co
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+koog-agents = { group = "ai.koog", name = "koog-agents", version.ref = "koog" }
+kotlin-compiler-embeddable = { group = "org.jetbrains.kotlin", name = "kotlin-compiler-embeddable", version.ref = "kotlin" }
+
+# Settings
+russhwolf-settings = { group = "com.russhwolf", name = "settings", version.ref = "russhwolfSettings" }
+russhwolf-settings-coroutines = { group = "com.russhwolf", name = "settings-coroutines", version.ref = "russhwolfSettings" }
 
 # InUpdate
 inapp-update-compose = { group = "se.warting.in-app-update", name = "in-app-update-compose", version.ref = "inApp-updateCompose" }
@@ -217,3 +259,4 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" } # Spotless
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 room = { id = "androidx.room", version.ref = "room" }
 protobuf = { id = "com.google.protobuf", version.ref = "androidProtoGradlePlugin" }
+buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }

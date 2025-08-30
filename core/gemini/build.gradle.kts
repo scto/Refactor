@@ -22,10 +22,12 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+	//alias(libs.plugins.buildkonfig)
 }
 
 android {
-    namespace = "com.github.scto.refactor.core.gemini"
+    namespace = libs.versions.android.applicationId.get().toString()
+	
     compileSdk = 35
 
     defaultConfig {
@@ -35,6 +37,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
         
         buildConfigField("String", "GEMINI_API_KEY", "\"${getApiKey()}\"")
+        buildConfigField("String", "DEBUG", "\"${getDebug()}\"")
     }
 
     buildTypes {
@@ -57,16 +60,17 @@ android {
     }
 	
     // ENTFERNT: Veralteter Block für Compose
+	/*
     buildFeatures {
-    //     compose = true
+        compose = true
         buildConfig = true
     }
+	*/
 }
 
 dependencies {
     implementation(libs.jgit)
     implementation(libs.timber)
-    
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -76,7 +80,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     // KORRIGIERT: Explizite Abhängigkeit hinzugefügt, um das Problem zu beheben
-    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation(libs.androidx.compose.material3)
     implementation(libs.google.generativeai)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
@@ -106,4 +110,13 @@ fun getApiKey(): String {
         properties.load(FileInputStream(localPropertiesFile))
     }
     return properties.getProperty("GEMINI_API_KEY", "DEFAULT_API_KEY_IF_NOT_FOUND")
+}
+
+fun getDebug(): String {
+    val properties = Properties()
+    val localPropertiesFile = project.rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        properties.load(FileInputStream(localPropertiesFile))
+    }
+    return properties.getProperty("DEBUG", "DEFAULT_DEBUG_VALUE_IF_NOT_FOUND")
 }

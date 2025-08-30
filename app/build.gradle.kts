@@ -6,22 +6,28 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 	alias(libs.plugins.hilt)
-	//alias(libs.plugins.kotlin.kapt)
-	//alias(libs.plugins.kotlin.serialization)
-	//id("androidx.navigation.safeargs.kotlin")
     alias(libs.plugins.ksp)
+	//alias(libs.plugins.buildkonfig)
 }
 
 android {
-    namespace = "com.github.scto.refactor"
-    compileSdk = 35
+	namespace = libs.versions.android.applicationId.get().toString()
+    //namespace = "com.github.scto.refactor"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.github.scto.refactor"
+		applicationId = libs.versions.android.applicationId.get().toString()
+        //applicationId = "com.github.scto.refactor"
+		minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        versionCode = libs.versions.android.versionCode.get().toInt()
+        versionName = libs.versions.android.versionName.get().toString()
+		/*
         minSdk = 26
         targetSdk = 34
         versionCode = 100
         versionName = "1.0.0"
+		*/
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -30,6 +36,7 @@ android {
         }
 
         buildConfigField("String", "GEMINI_API_KEY", "\"${getApiKey()}\"")
+        buildConfigField("String", "DEBUG", "\"${getDebug()}\"")
     }
 
     buildTypes {
@@ -80,12 +87,6 @@ dependencies {
     implementation(project(":ui:onboarding"))
     implementation(project(":ui:settings"))
     
-    // Hilt
-	implementation(libs.hilt.android)
-    //implementation("com.google.dagger:hilt-android:2.51.1")
-    ksp(libs.hilt.compiler)
-	//kapt(libs.hilt.compiler)
-    //kapt("com.google.dagger:hilt-compiler:2.51.1")
 	implementation(libs.androidx.hilt.navigation.compose)
     //implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
@@ -98,14 +99,27 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.testManifest)
     implementation(libs.androidx.lifecycle.viewModelCompose)
-	
 	implementation(libs.coil.kt.compose)
 	implementation(libs.coil.kt.svg)
-	
 	implementation(libs.inapp.update.compose)
+	
+    // Hilt
+	implementation(libs.hilt.android)
+    //implementation("com.google.dagger:hilt-android:2.51.1")
+    ksp(libs.hilt.compiler)
+	//kapt(libs.hilt.compiler)
+    //kapt("com.google.dagger:hilt-compiler:2.51.1")
+	
+	testImplementation(libs.junit4)
+	
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test)
+	
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.testManifest)
 }
 
 fun getApiKey(): String {
@@ -115,4 +129,13 @@ fun getApiKey(): String {
         properties.load(FileInputStream(localPropertiesFile))
     }
     return properties.getProperty("GEMINI_API_KEY", "DEFAULT_API_KEY_IF_NOT_FOUND")
+}
+
+fun getDebug(): String {
+    val properties = Properties()
+    val localPropertiesFile = project.rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        properties.load(FileInputStream(localPropertiesFile))
+    }
+    return properties.getProperty("DEBUG", "DEFAULT_DEBUG_VALUE_IF_NOT_FOUND")
 }

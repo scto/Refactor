@@ -23,8 +23,9 @@ import androidx.navigation.navigation
 
 const val SETTINGS_GRAPH_ROUTE_PATTERN = "settings_graph"
 const val MAIN_SETTINGS_ROUTE = "main_settings_route"
-const val ABOUT_SETTINGS_ROUTE = "about_settings_route"
 const val THEME_SETTINGS_ROUTE = "theme_settings_route"
+const val DEBUG_SETTINGS_ROUTE = "debug_settings_route"
+const val ABOUT_SETTINGS_ROUTE = "about_settings_route"
 
 /*
 sealed class SettingsScreen(val route: String) {
@@ -46,11 +47,20 @@ fun NavGraphBuilder.settingsGraph(onBackClick: () -> Unit, navController: NavCon
                 onNavigate = { route -> navController.navigate(route) },
             )
         }
-        composable(route = ABOUT_SETTINGS_ROUTE) {
-            AboutSettingsScreen(onBackClick = { navController.popBackStack() })
+		composable(route = THEME_SETTINGS_ROUTE) {
+            ThemeSettingsScreen(
+				onBackClick = { navController.popBackStack() }
+			)
         }
-        composable(route = THEME_SETTINGS_ROUTE) {
-            ThemeSettingsScreen(onBackClick = { navController.popBackStack() })
+		composable(route = DEBUG_SETTINGS_ROUTE) {
+            DebugSettingsScreen(
+				onBackClick = { navController.popBackStack() }
+			)
+        }
+        composable(route = ABOUT_SETTINGS_ROUTE) {
+            AboutSettingsScreen(
+				onBackClick = { navController.popBackStack() }
+			)
         }
     }
 }

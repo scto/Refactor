@@ -1,4 +1,3 @@
-// Refactor/data/local/build.gradle.kts
 /*
  * Copyright 2025, S.C.T.O
  *
@@ -14,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.hilt)
-	//alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.ksp)
 }
 

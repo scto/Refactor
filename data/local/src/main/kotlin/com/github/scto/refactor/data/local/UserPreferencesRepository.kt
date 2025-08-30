@@ -20,6 +20,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 
@@ -44,42 +45,90 @@ class UserPreferencesRepository
 @Inject
 constructor(@ApplicationContext private val context: Context) {
 
-    /** Flow representing the user's stored API key. Emits the latest value whenever it changes. */
-    val apiKey: Flow<String?> =
-        context.dataStore.data // KORRIGIERT: context. hinzugefügt
-            .map { preferences -> preferences[API_KEY] }
-
     /** Flow representing the user's selected theme. */
     val theme: Flow<String?> =
         context.dataStore.data // KORRIGIERT: context. hinzugefügt
             .map { preferences -> preferences[THEME] }
 
-    /**
-     * Suspended function to update the API key in DataStore.
-     *
-     * @param apiKey The new API key to be stored.
-     */
-    suspend fun setApiKey(apiKey: String) {
-        context.dataStore.edit { preferences -> // KORRIGIERT: context. hinzugefügt
-            preferences[API_KEY] = apiKey
-        }
-    }
+    val dynamicColor: Flow<String?> =
+        context.dataStore.data // KORRIGIERT: context. hinzugefügt
+            .map { preferences -> preferences[DYNAMIC_COLOR] }
+
+    /** Flow representing the user's stored API key. Emits the latest value whenever it changes. */
+    val apiKey: Flow<String?> =
+        context.dataStore.data // KORRIGIERT: context. hinzugefügt
+            .map { preferences -> preferences[API_KEY] }
+
+    val debug: Flow<String?> =
+        context.dataStore.data // KORRIGIERT: context. hinzugefügt
+            .map { preferences -> preferences[DEBUG] }
+			
+    val appVersion: Flow<String?> =
+        context.dataStore.data // KORRIGIERT: context. hinzugefügt
+            .map { preferences -> preferences[APP_VERSION] }
 
     /**
      * Suspended function to update the theme in DataStore.
      *
      * @param theme The new theme name to be stored.
      */
-    suspend fun setTheme(theme: String) {
+    suspend fun saveTheme(theme: String) {
         context.dataStore.edit { preferences -> // KORRIGIERT: context. hinzugefügt
             preferences[THEME] = theme
         }
     }
 
+    /**
+     * Suspended function to update the dynamic color in DataStore.
+     *
+     * @param useDynamicColor The new valid if dynamic colors to be stored.
+     */
+    suspend fun saveDynamicColor(dynamicColor: Boolean) {
+        context.dataStore.edit { preferences -> // KORRIGIERT: context. hinzugefügt
+            preferences[DYNAMIC_COLOR] = dynamicColor
+        }
+    }
+	
+	/**
+     * Suspended function to update the API key in DataStore.
+     *
+     * @param apiKey The new API key to be stored.
+     */
+    suspend fun saveApiKey(apiKey: String) {
+        context.dataStore.edit { preferences -> // KORRIGIERT: context. hinzugefügt
+            preferences[API_KEY] = apiKey
+        }
+    }
+	
+    /**
+     * Suspended function to update the theme in DataStore.
+     *
+     * @param theme The new theme name to be stored.
+     */
+    suspend fun saveDebug(debug: Boolean) {
+        context.dataStore.edit { preferences -> // KORRIGIERT: context. hinzugefügt
+            preferences[DEBUG] = debug
+        }
+    }
+	
+	/**
+     * Suspended function to update the theme in DataStore.
+     *
+     * @param theme The new theme name to be stored.
+     */
+    suspend fun saveAppVersion(appVersion: String) {
+        context.dataStore.edit { preferences -> // KORRIGIERT: context. hinzugefügt
+            preferences[APP_VERSION] = appVersion
+        }
+    }
+	
     private companion object {
         // Define keys for DataStore
-        private val API_KEY = stringPreferencesKey("api_key")
         private val THEME = stringPreferencesKey("theme")
+		private val DYNAMOC_COLOR = booleanPreferencesKey("dynamicColor")
+		private val API_KEY = stringPreferencesKey("api_key")
+		private val DEBUG = booleanPreferencesKey("debug")
+		private val APP_VERSION = stringPreferencesKey("app_version")
     }
 }
 

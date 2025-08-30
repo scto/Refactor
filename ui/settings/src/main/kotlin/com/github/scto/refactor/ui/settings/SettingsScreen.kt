@@ -21,6 +21,12 @@ fun SettingsScreen(
                 onNavigateBack = { navController.popBackStack() },
             )
         }
+		composable(SettingsScreen.Debug.route) {
+            DebugSettingsScreen(
+                viewModel = viewModel,
+                onNavigateBack = { navController.popBackStack() },
+            )
+        }
         composable(SettingsScreen.About.route) {
             AboutSettingsScreen(
                 viewModel = viewModel,

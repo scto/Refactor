@@ -30,7 +30,9 @@ enum class ThemeSetting {
  */
 data class SettingsUiState(
     val theme: ThemeSetting = ThemeSetting.SYSTEM,
-    val useDynamicColor: Boolean = false, // Geändert zu Boolean für den Switch
+    val dynamicColor: Boolean = false, // Geändert zu Boolean für den Switch
+	val apiKey: String = "", // Beispiel-Version
+	val debug: Boolean = false, // Geändert zu Boolean für den Switch
     val appVersion: String = "1.0.0", // Beispiel-Version
 )
 
@@ -40,8 +42,17 @@ sealed class SettingsUiEvent {
     data class OnThemeChanged(val theme: ThemeSetting) : SettingsUiEvent()
 
     /** Wird ausgelöst, wenn der Benutzer den Schalter für dynamische Farben betätigt. */
-    data class OnDynamicColorChanged(val useDynamicColor: Boolean) : SettingsUiEvent()
+    data class OnDynamicColorChanged(val dynamicColor: Boolean) : SettingsUiEvent()
 
+    /**
+     * Wird ausgelöst, wenn sich der Api Key ändert (z.B. für die Anzeige). HINWEIS:
+     * Syntaxfehler aus der Originaldatei wurde korrigiert.
+     */
+    data class OnApiKeyChanged(val apiKey: String) : SettingsUiEvent()
+	
+	/** Wird ausgelöst, wenn der Benutzer den Schalter für debugging betätigt. */
+    data class OnDebugChanged(val debug: Boolean) : SettingsUiEvent()
+	
     /**
      * Wird ausgelöst, wenn sich die App-Version ändert (z.B. für die Anzeige). HINWEIS:
      * Syntaxfehler aus der Originaldatei wurde korrigiert.
