@@ -114,7 +114,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 	
 	// Jetpack Security
-    implementation("androidx.security:security-crypto-ktx:1.1.0-alpha06")
+    implementation("androidx.security:security-crypto-ktx:1.1.0")
 
     // --- NEUE TEST-ABHÄNGIGKEITEN ---
     // Standard Unit-Tests (laufen auf der JVM)
