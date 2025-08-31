@@ -95,11 +95,11 @@ dependencies {
     ksp(libs.hilt.compiler)
 	
     // Ktor-Abhängigkeiten
-    implementation("io.ktor:ktor-client-core:2.3.13")
-    implementation("io.ktor:ktor-client-cio:2.3.13")
-    implementation("io.ktor:ktor-client-content-negotiation:2.3.13")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.13")
-    implementation("io.ktor:ktor-client-logging:2.3.13")
+    implementation("io.ktor:ktor-client-core:3.2.3")
+    implementation("io.ktor:ktor-client-cio:3.2.3")
+    implementation("io.ktor:ktor-client-content-negotiation:3.2.3")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:3.2.3")
+    implementation("io.ktor:ktor-client-logging:3.2.3")
     
     testImplementation(libs.junit4)
 	
