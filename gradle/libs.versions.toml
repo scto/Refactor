@@ -71,7 +71,7 @@ protobuf = "3.25.5"
 
 retrofit = "2.9.0"
 okhttp = "4.12.0"
-json = "20231013"
+json = "20250517"
 gson = "2.13.1"
 junit4 = "4.13.2"
 mockk = "1.14.2"
