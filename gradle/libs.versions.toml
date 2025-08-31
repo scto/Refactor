@@ -67,7 +67,7 @@ hilt = "2.50"
 hiltExt = "1.1.0"
 
 grpc = "1.49.2"
-protobuf = "3.25.5"
+protobuf = "4.32.0"
 
 retrofit = "2.9.0"
 okhttp = "4.12.0"
