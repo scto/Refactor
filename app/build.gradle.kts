@@ -12,12 +12,12 @@ plugins {
 }
 
 android {
-	namespace = libs.versions.android.applicationId.get().toString()
+	namespace = libs.versions.android.app.name.get().toString()
     //namespace = "com.github.scto.refactor"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-		applicationId = libs.versions.android.applicationId.get().toString()
+		applicationId = libs.versions.android.app.name.get().toString()
         //applicationId = "com.github.scto.refactor"
 		minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()

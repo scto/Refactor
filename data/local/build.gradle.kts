@@ -22,12 +22,13 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
+
 android {
-    namespace = "com.github.scto.refactor.data.local"
-    compileSdk = 35
+	namespace = libs.versions.android.data.local.name.get().toString()
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 26
+		minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {

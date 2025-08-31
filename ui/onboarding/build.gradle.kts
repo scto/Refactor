@@ -25,11 +25,11 @@ plugins {
 }
 
 android {
-    namespace = "com.github.scto.refactor.ui.onboarding"
-    compileSdk = 35
+	namespace = libs.versions.android.ui.onboarding.name.get().toString()
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 26
+		minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {
