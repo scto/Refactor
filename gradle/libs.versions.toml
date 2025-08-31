@@ -63,7 +63,7 @@ kermit = "2.0.4"
 
 coil = "2.7.0"
 
-hilt = "2.50"
+hilt = "2.57.1"
 hiltExt = "1.1.0"
 
 grpc = "1.49.2"
