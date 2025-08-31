@@ -57,8 +57,8 @@ leakcanaryAndroid = "2.14"
 lsp4j = "0.23.1"
 
 kermit = "2.0.4"
-buildkonfig = "0.15.1"
-russhwolfSettings = "1.1.1"
+#buildkonfig = "0.15.1"
+#russhwolfSettings = "1.1.1"
 
 coil = "2.7.0"
 
@@ -239,8 +239,8 @@ koog-agents = { group = "ai.koog", name = "koog-agents", version.ref = "koog" }
 kotlin-compiler-embeddable = { group = "org.jetbrains.kotlin", name = "kotlin-compiler-embeddable", version.ref = "kotlin" }
 
 # Settings
-russhwolf-settings = { group = "com.russhwolf", name = "settings", version.ref = "russhwolfSettings" }
-russhwolf-settings-coroutines = { group = "com.russhwolf", name = "settings-coroutines", version.ref = "russhwolfSettings" }
+#russhwolf-settings = { group = "com.russhwolf", name = "settings", version.ref = "russhwolfSettings" }
+#russhwolf-settings-coroutines = { group = "com.russhwolf", name = "settings-coroutines", version.ref = "russhwolfSettings" }
 
 # InUpdate
 inapp-update-compose = { group = "se.warting.in-app-update", name = "in-app-update-compose", version.ref = "inApp-updateCompose" }
@@ -259,4 +259,4 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" } # Spotless
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 room = { id = "androidx.room", version.ref = "room" }
 protobuf = { id = "com.google.protobuf", version.ref = "androidProtoGradlePlugin" }
-buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
+#buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
