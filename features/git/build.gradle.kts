@@ -74,17 +74,17 @@ dependencies {
     implementation(libs.timber)
 
     // ViewModel and Compose
-    implementation(platform("androidx.compose:compose-bom:2025.08.01"))
+    implementation(platform("androidx.compose:compose-bom:2024.12.01"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.3")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.3")
 
     // DataStore (Proto)
-    implementation("androidx.datastore:datastore:1.1.7")
+    implementation("androidx.datastore:datastore:1.1.1")
     
     // https://mvnrepository.com/artifact/com.google.protobuf/protoc
     //implementation("com.google.protobuf:protoc:3.25.3")
@@ -104,7 +104,7 @@ dependencies {
     //implementation("com.google.protobuf:protobuf-java-util:3.25.5")
     //implementation("com.google.protobuf:protobuf-java-util:3.25.3")
     //implementation("com.google.protobuf:protobuf-java:3.25.3")
-    implementation("com.google.protobuf:protobuf-javalite:4.32.0")
+    implementation("com.google.protobuf:protobuf-javalite:3.25.3")
     //implementation(libs.protobuf.javalite)
     
     // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
@@ -112,13 +112,13 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin-lite
     //implementation("com.google.protobuf:protobuf-kotlin-lite:3.25.5")
     //implementation("com.google.protobuf:protobuf-kotlin:3.25.5")
-    implementation("com.google.protobuf:protobuf-kotlin-lite:4.32.0")
+    implementation("com.google.protobuf:protobuf-kotlin-lite:3.25.3")
     //implementation(libs.protobuf.kotlin.lite)
     
     // Room Database
-    implementation("androidx.room:room-runtime:2.7.2")
-    implementation("androidx.room:room-ktx:2.7.2")
-    ksp("androidx.room:room-compiler:2.7.2")
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
@@ -155,7 +155,7 @@ protobuf {
         // --- Für Linux ---
         // artifact = "com.google.protobuf:protoc:3.25.5:linux-x86_64"
         
-        artifact = "com.google.protobuf:protoc:4.32.0"
+        artifact = "com.google.protobuf:protoc:3.25.3"
     }
     generateProtoTasks {
         all().forEach { task ->
