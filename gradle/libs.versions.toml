@@ -86,7 +86,7 @@ inApp-updateCompose = "1.3.1"
 
 # App Module
 android-app-name = "com.github.scto.refactor"
-android-core-git-name = "com.github.scto.refactor.core.gemini"
+android-core-gemini-name = "com.github.scto.refactor.core.gemini"
 android-data-local-name = "com.github.scto.refactor.data.local"
 android-features-git-name = "com.github.scto.refactor.features.git"
 android-selfupdate-name = "com.github.scto.refactor.selfupdate"
