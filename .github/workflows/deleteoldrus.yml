@@ -10,12 +10,15 @@ on:
       minimum_runs:
         description: 'The minimum runs to keep for each workflow.'
         required: true
-        default: '4'
+        default: '1'
 
 jobs:
   deleteWorkflowRuns:
     name: Delete old workflow runs
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
     steps:
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@v2.0.6
