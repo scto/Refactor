@@ -81,7 +81,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.3")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.3")
 
     // DataStore (Proto)
     implementation("androidx.datastore:datastore:1.1.1")
