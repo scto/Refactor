@@ -19,6 +19,6 @@
 	<string name="onboarding_main_description">Dein intelligenter Assistent zur Modernisierung von Android-Projekten.</string>
 	<string name="onboarding_processors_title">Prozessoren auswählen</string>
 	<string name="onboarding_processors_description">Wähle aus einer Vielzahl von Prozessoren, um deinen Code zu analysieren und zu verbessern.</string>
-	<string name="onboarding_run_title">Los geht's!</string>
+	<string name="onboarding_run_title">Los geht!</string>
 	<string name="onboarding_run_description">Star</string>
 </resources>
