@@ -69,7 +69,7 @@ hiltExt = "1.2.0"
 grpc = "1.49.2"
 protobuf = "3.25.5"
 
-retrofit = "2.12.0"
+retrofit = "3.0.0"
 okhttp = "5.1.0"
 json = "20250517"
 gson = "2.13.1"
