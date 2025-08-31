@@ -57,7 +57,7 @@ ktsh = "1.0.0"
 leakcanaryAndroid = "2.14"
 lsp4j = "0.23.1"
 
-kermit = "2.0.4"
+kermit = "2.0.8"
 #buildkonfig = "0.15.1"
 #russhwolfSettings = "1.1.1"
 
