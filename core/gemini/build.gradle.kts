@@ -23,16 +23,15 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
-	//alias(libs.plugins.buildkonfig)
 }
 
 android {
-    namespace = libs.versions.android.applicationId.get().toString()
+    namespace = libs.versions.android.core.gemini.name.get().toString()
 	
-    compileSdk = 35
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 26
+        minSdk = libs.versions.android.minSdk.get().toInt()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")

@@ -21,11 +21,11 @@ plugins {
     alias(libs.plugins.kotlin.serialization) // Hinzufügen für Kotlinx Serialization
 }
 android {
-    namespace = "com.github.scto.refactor.selfupdate"
-    compileSdk = 35
+	namespace = libs.versions.android.selfupdate.name.get().toString()
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 26
+		minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
     compileOptions {

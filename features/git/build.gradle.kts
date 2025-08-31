@@ -25,11 +25,11 @@ plugins {
 }
 
 android {
-    namespace = "com.github.scto.refactor.features.git"
-    compileSdk = 35
+	namespace = libs.versions.android.features.git.name.get().toString()
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        minSdk = 26
+		minSdk = libs.versions.android.minSdk.get().toInt()
 
         // WICHTIG: Test-Runner für Instrumented Tests hinzufügen
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

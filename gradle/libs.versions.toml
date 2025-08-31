@@ -85,13 +85,19 @@ spotless = "7.2.1"
 inApp-updateCompose = "1.3.1"
 
 # App Module
-android-applicationId = "com.github.scto.refactor"
-android-compileSdk = "34"
-android-minSdk = "24"
-android-targetSdk = "34"
+android-app-name = "com.github.scto.refactor"
+android-core-git-name = "com.github.scto.refactor.core.gemini"
+android-data-local-name = "com.github.scto.refactor.data.local"
+android-features-git-name = "com.github.scto.refactor.features.git"
+android-selfupdate-name = "com.github.scto.refactor.selfupdate"
+android-ui-home-name = "com.github.scto.refactor.ui.home"
+android-ui-onboarding-name = "com.github.scto.refactor.ui.onboarding"
+android-ui-settings-name = "com.github.scto.refactor.ui.settings"
+android-compileSdk = "35"
+android-minSdk = "26"
+android-targetSdk = "35"
 android-versionCode = "100"
 android-versionName = "1.0.0"
-packageNameCore = "com.github.scto.refactor.core.gemini"
 
 [libraries]
 accompanist-flowlayout = { group = "com.google.accompanist", name = "accompanist-flowlayout", version.ref = "accompanist" }
