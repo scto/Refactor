@@ -104,7 +104,7 @@ dependencies {
     //implementation("com.google.protobuf:protobuf-java-util:3.25.5")
     //implementation("com.google.protobuf:protobuf-java-util:3.25.3")
     //implementation("com.google.protobuf:protobuf-java:3.25.3")
-    implementation("com.google.protobuf:protobuf-javalite:3.25.3")
+    implementation("com.google.protobuf:protobuf-javalite:3.25.8")
     //implementation(libs.protobuf.javalite)
     
     // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
@@ -112,7 +112,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin-lite
     //implementation("com.google.protobuf:protobuf-kotlin-lite:3.25.5")
     //implementation("com.google.protobuf:protobuf-kotlin:3.25.5")
-    implementation("com.google.protobuf:protobuf-kotlin-lite:3.25.3")
+    implementation("com.google.protobuf:protobuf-kotlin-lite:3.25.8")
     //implementation(libs.protobuf.kotlin.lite)
     
     // Room Database
@@ -155,7 +155,7 @@ protobuf {
         // --- Für Linux ---
         // artifact = "com.google.protobuf:protoc:3.25.5:linux-x86_64"
         
-        artifact = "com.google.protobuf:protoc:3.25.3"
+        artifact = "com.google.protobuf:protoc:3.25.8"
     }
     generateProtoTasks {
         all().forEach { task ->
