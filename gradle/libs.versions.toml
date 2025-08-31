@@ -46,7 +46,7 @@ kotlinxDatetime = "0.4.0"
 kotlinxSerializationJson = "1.8.0"
 #ksp = "2.0.21-1.0.27"
 ksp = "2.0.0-1.0.24"
-ktor = "2.3.11"
+ktor = "2.3.13"
 koog = "0.2.1"
 
 eventbus = "3.3.1"
