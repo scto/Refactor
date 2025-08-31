@@ -62,12 +62,10 @@ android {
 	*/
 	
     // ENTFERNT: Veralteter Block für Compose
-	/*
     buildFeatures {
-        compose = true
+        //compose = true
         buildConfig = true
     }
-	*/
 }
 
 kotlin {
