@@ -50,7 +50,7 @@ ktor = "2.3.13"
 koog = "0.2.1"
 
 eventbus = "3.3.1"
-glide = "4.16.0"
+glide = "5.0.0"
 bsh = "3.0.0-SNAPSHOT"
 ktsh = "1.0.0"
 leakcanaryAndroid = "2.14"
