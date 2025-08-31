@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -31,8 +33,16 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    /*
     kotlinOptions {
         jvmTarget = "17"
+    }
+	*/
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
     }
 }
 

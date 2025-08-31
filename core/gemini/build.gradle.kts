@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import java.util.Properties
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.FileInputStream
+import java.util.Properties
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -55,9 +56,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 	
+	/*
     kotlinOptions {
         jvmTarget = "17"
     }
+	*/
 	
     // ENTFERNT: Veralteter Block für Compose
 	/*
@@ -66,6 +69,12 @@ android {
         buildConfig = true
     }
 	*/
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
 }
 
 dependencies {

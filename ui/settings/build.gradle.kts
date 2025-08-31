@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
 	alias(libs.plugins.android.library)
 	alias(libs.plugins.kotlin.android)
@@ -37,18 +39,23 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.8"
     }
+	
+	kotlinOptions {
+        jvmTarget = "17"
+    }
     */
 	
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
+}
 dependencies {
     // Abhängigkeit zum :data:local Modul für den Zugriff auf UserPreferencesRepository
     implementation(project(":data:local"))
