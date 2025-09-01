@@ -36,7 +36,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         /*
         ksp {
-            arg("room.schemaLocation", file("schemas").absolutePath)
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
 		*/
 		ksp {

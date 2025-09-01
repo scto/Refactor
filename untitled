@@ -1,8 +1,0 @@
-e: file:///home/runner/work/Refactor/Refactor/data/local/src/main/kotlin/com/github/scto/refactor/data/local/UserPreferencesRepository.kt:55:47 Unresolved reference 'DYNAMIC_COLOR'.
-e: file:///home/runner/work/Refactor/Refactor/data/local/src/main/kotlin/com/github/scto/refactor/data/local/UserPreferencesRepository.kt:64:35 Argument type mismatch: actual type is 'kotlin.Boolean?', but 'kotlin.String?' was expected.
-Task :data:local:compileDebugKotlin FAILED
-e: file:///home/runner/work/Refactor/Refactor/data/local/src/main/kotlin/com/github/scto/refactor/data/local/UserPreferencesRepository.kt:88:25 Unresolved reference 'DYNAMIC_COLOR'.
-e: [ksp] /home/runner/work/Refactor/Refactor/features/git/src/main/kotlin/com/github/scto/refactor/features/git/data/local/db/GitDatabase.kt:15: Schema '1.json' required for migration was not found at the schema out folder: /home/runner/work/Refactor/Refactor/features/git/schemas/com.github.scto.refactor.features.git.data.local.db.GitDatabase. Cannot generate auto migrations.
-e: Error occurred in KSP, check log for detail
-Task :features:git:kspDebugKotlin
-Task :features:git:kspDebugKotlin FAILED
