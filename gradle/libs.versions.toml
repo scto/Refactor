@@ -41,7 +41,7 @@ material3 = "1.6.0"
 
 #kotlin = "1.9.24"
 kotlin = "2.0.0"
-kotlinxCoroutines = "1.7.3"
+kotlinxCoroutines = "1.10.2"
 kotlinxDatetime = "0.4.0"
 kotlinxSerializationJson = "1.8.0"
 #ksp = "2.0.21-1.0.27"
