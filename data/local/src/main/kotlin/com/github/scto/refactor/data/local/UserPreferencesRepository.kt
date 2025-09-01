@@ -16,19 +16,15 @@
 package com.github.scto.refactor.data.local
 
 import android.content.Context
-
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-
 import dagger.hilt.android.qualifiers.ApplicationContext
-
 import javax.inject.Inject
 import javax.inject.Singleton
-
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -47,25 +43,29 @@ constructor(@ApplicationContext private val context: Context) {
 
     /** Flow representing the user's selected theme. */
     val theme: Flow<String?> =
-        context.dataStore.data // KORRIGIERT: context. hinzugefügt
-            .map { preferences -> preferences[THEME] }
+        context.dataStore.data.map { preferences -> preferences[THEME] }
 
-    val dynamicColor: Flow<String?> =
-        context.dataStore.data // KORRIGIERT: context. hinzugefügt
-            .map { preferences -> preferences[DYNAMIC_COLOR] }
+    val dynamicColor: Flow<Boolean> =
+        context.dataStore.data.map { preferences -> preferences[DYNAMIC_COLOR] ?: false }
 
     /** Flow representing the user's stored API key. Emits the latest value whenever it changes. */
     val apiKey: Flow<String?> =
-        context.dataStore.data // KORRIGIERT: context. hinzugefügt
-            .map { preferences -> preferences[API_KEY] }
+        context.dataStore.data.map { preferences -> preferences[API_KEY] }
 
-    val debug: Flow<String?> =
-        context.dataStore.data // KORRIGIERT: context. hinzugefügt
-            .map { preferences -> preferences[DEBUG] }
-			
+    val debug: Flow<Boolean> =
+        context.dataStore.data.map { preferences -> preferences[DEBUG] ?: false }
+
     val appVersion: Flow<String?> =
-        context.dataStore.data // KORRIGIERT: context. hinzugefügt
-            .map { preferences -> preferences[APP_VERSION] }
+        context.dataStore.data.map { preferences -> preferences[APP_VERSION] }
+        
+    val onboardingCompleted: Flow<Boolean> =
+        context.dataStore.data.map { preferences -> preferences[ONBOARDING_COMPLETED] ?: false }
+
+    suspend fun saveOnboardingCompleted(completed: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[ONBOARDING_COMPLETED] = completed
+        }
+    }
 
     /**
      * Suspended function to update the theme in DataStore.
@@ -73,7 +73,7 @@ constructor(@ApplicationContext private val context: Context) {
      * @param theme The new theme name to be stored.
      */
     suspend fun saveTheme(theme: String) {
-        context.dataStore.edit { preferences -> // KORRIGIERT: context. hinzugefügt
+        context.dataStore.edit { preferences ->
             preferences[THEME] = theme
         }
     }
@@ -84,51 +84,52 @@ constructor(@ApplicationContext private val context: Context) {
      * @param useDynamicColor The new valid if dynamic colors to be stored.
      */
     suspend fun saveDynamicColor(dynamicColor: Boolean) {
-        context.dataStore.edit { preferences -> // KORRIGIERT: context. hinzugefügt
+        context.dataStore.edit { preferences ->
             preferences[DYNAMIC_COLOR] = dynamicColor
         }
     }
-	
-	/**
+
+    /**
      * Suspended function to update the API key in DataStore.
      *
      * @param apiKey The new API key to be stored.
      */
     suspend fun saveApiKey(apiKey: String) {
-        context.dataStore.edit { preferences -> // KORRIGIERT: context. hinzugefügt
+        context.dataStore.edit { preferences ->
             preferences[API_KEY] = apiKey
         }
     }
-	
+
     /**
      * Suspended function to update the theme in DataStore.
      *
      * @param theme The new theme name to be stored.
      */
     suspend fun saveDebug(debug: Boolean) {
-        context.dataStore.edit { preferences -> // KORRIGIERT: context. hinzugefügt
+        context.dataStore.edit { preferences ->
             preferences[DEBUG] = debug
         }
     }
-	
-	/**
+
+    /**
      * Suspended function to update the theme in DataStore.
      *
      * @param theme The new theme name to be stored.
      */
     suspend fun saveAppVersion(appVersion: String) {
-        context.dataStore.edit { preferences -> // KORRIGIERT: context. hinzugefügt
+        context.dataStore.edit { preferences ->
             preferences[APP_VERSION] = appVersion
         }
     }
-	
+
     private companion object {
         // Define keys for DataStore
         private val THEME = stringPreferencesKey("theme")
-		private val DYNAMOC_COLOR = booleanPreferencesKey("dynamicColor")
-		private val API_KEY = stringPreferencesKey("api_key")
-		private val DEBUG = booleanPreferencesKey("debug")
-		private val APP_VERSION = stringPreferencesKey("app_version")
+        private val DYNAMIC_COLOR = booleanPreferencesKey("dynamicColor")
+        private val API_KEY = stringPreferencesKey("api_key")
+        private val DEBUG = booleanPreferencesKey("debug")
+        private val APP_VERSION = stringPreferencesKey("app_version")
+        private val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
     }
 }
 
@@ -136,3 +137,8 @@ constructor(@ApplicationContext private val context: Context) {
 // This is the recommended way to instantiate DataStore.
 private val Context.dataStore: DataStore<Preferences> by
     preferencesDataStore(name = "user_preferences")
+	
+	
+
+
+
