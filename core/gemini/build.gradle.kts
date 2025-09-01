@@ -38,7 +38,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
         
         buildConfigField("String", "GEMINI_API_KEY", "\"${getApiKey()}\"")
-        buildConfigField("String", "DEBUG", "\"${getDebug()}\"")
+        //buildConfigField("String", "DEBUG", "\"${getDebug()}\"")
     }
 
     buildTypes {
@@ -48,6 +48,14 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+		debug {
+            isMinifyEnabled = false
+			isDebuggable = true
+            proguardFiles(
+				getDefaultProguardFile("proguard-android-optimize.txt"),
+				"proguard-rules.pro"
+			)
         }
     }
 	
@@ -119,6 +127,7 @@ fun getApiKey(): String {
     return properties.getProperty("GEMINI_API_KEY", "DEFAULT_API_KEY_IF_NOT_FOUND")
 }
 
+/*
 fun getDebug(): String {
     val properties = Properties()
     val localPropertiesFile = project.rootProject.file("local.properties")
@@ -127,3 +136,4 @@ fun getDebug(): String {
     }
     return properties.getProperty("DEBUG", "DEFAULT_DEBUG_VALUE_IF_NOT_FOUND")
 }
+*/
