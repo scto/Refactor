@@ -27,7 +27,7 @@ plugins {
 	alias(libs.plugins.room) apply false
 	alias(libs.plugins.detekt) apply false
     alias(libs.plugins.protobuf) apply false
-    alias(libs.plugins.kfmt) apply false
+    alias(libs.plugins.kfmt)
 	//alias(libs.plugins.buildkonfig) apply false
 }
 
@@ -51,7 +51,5 @@ ktfmt {
     manageTrailingCommas.set(false)
 }
 
-tasks.register<KtfmtFormatTask>("ktfmtPrecommit") {
-    source = project.fileTree(rootDir)
-    include("**/*.kt")
-}
+
+tasks.register<Delete>("clean") { delete(layout.buildDirectory) }
