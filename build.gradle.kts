@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 //import com.diffplug.gradle.spotless.SpotlessTask
+import com.ncorti.ktfmt.gradle.tasks.*
+
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.android.library) apply false
@@ -31,4 +33,25 @@ plugins {
 
 buildscript {
   dependencies { classpath("com.google.protobuf:protobuf-gradle-plugin:0.9.5") }
+}
+
+ktfmt {
+    // KotlinLang style - 4 space indentation - From kotlinlang.org/docs/coding-conventions.html
+    kotlinLangStyle()
+
+    // Breaks lines longer than maxWidth. Default 100.
+    maxWidth.set(80)
+    // blockIndent is the indent size used when a new block is opened, in spaces.
+    blockIndent.set(8)
+    // continuationIndent is the indent size used when a line is broken because it's too
+    continuationIndent.set(8)
+    // Whether ktfmt should remove imports that are not used.
+    removeUnusedImports.set(false)
+    // Whether ktfmt should automatically add/remove trailing commas.
+    manageTrailingCommas.set(false)
+}
+
+tasks.register<KtfmtFormatTask>("ktfmtPrecommit") {
+    source = project.fileTree(rootDir)
+    include("**/*.kt")
 }
