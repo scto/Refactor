@@ -137,8 +137,3 @@ constructor(@ApplicationContext private val context: Context) {
 // This is the recommended way to instantiate DataStore.
 private val Context.dataStore: DataStore<Preferences> by
     preferencesDataStore(name = "user_preferences")
-	
-	
-
-
-
