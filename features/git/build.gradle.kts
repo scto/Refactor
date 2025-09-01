@@ -34,9 +34,13 @@ android {
 
         // WICHTIG: Test-Runner für Instrumented Tests hinzufügen
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
+        /*
         ksp {
             arg("room.schemaLocation", file("schemas").absolutePath)
+        }
+		*/
+		ksp {
+			arg("room.schemaLocation", file("schemas").absolutePath)
         }
     }
 
