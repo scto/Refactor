@@ -147,7 +147,7 @@ fun ProcessorsTab(state: UiState, onProcessorToggled: (RefactoringOption, Boolea
                     checked = state.options.contains(option),
                     onCheckedChange = { isEnabled -> onProcessorToggled(option, isEnabled) },
                 )
-                Text(option.displayText, Modifier.padding(start = 8.dp))
+                Text(option.displayText, modifier = Modifier.padding(start = 8.dp))
             }
         }
     }
