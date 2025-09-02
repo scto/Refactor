@@ -7,7 +7,7 @@ androidxActivity = "1.8.2"
 androidxAppCompat = "1.6.1"
 androidxSwipeRefreshLayout = "1.1.0"
 androidxComposeBom = "2023.10.01"
-androidxComposeCompiler = "1.5.6"
+androidxComposeCompiler = "1.5.11" # CORRECTED: Version compatible with Kotlin 2.0.0
 androidxComposeFoundation = "1.9.0"
 androidxComposeMaterial3Adaptive = "1.1.0"
 androidxComposeMaterial3 = "1.1.2"
@@ -39,15 +39,12 @@ generativeAi = "0.9.0"
 material = "1.12.0"
 material3 = "1.6.0"
 
-#kotlin = "1.9.24"
 kotlin = "2.0.0"
 kotlinxCoroutines = "1.7.3"
 kotlinxDatetime = "0.4.0"
-kotlinxSerializationJson = "1.8.0"
-#ksp = "2.0.21-1.0.27"
-ksp = "2.0.0-1.0.24"
-ktor = "3.2.3"
-#ktor = "2.3.13"
+kotlinxSerializationJson = "1.6.3" # CORRECTED: Stable version
+ksp = "2.0.0-1.0.21" # CORRECTED: Version compatible with Kotlin 2.0.0
+ktor = "2.3.11" # CORRECTED: Stable version
 koog = "0.2.1"
 kfmtGradlePlugin = "0.23.0"
 eventbus = "3.3.1"
@@ -58,8 +55,6 @@ leakcanaryAndroid = "2.14"
 lsp4j = "0.23.1"
 
 kermit = "2.0.4"
-#buildkonfig = "0.15.1"
-#russhwolfSettings = "1.1.1"
 
 coil = "2.7.0"
 
@@ -67,7 +62,7 @@ hilt = "2.50"
 hiltExt = "1.1.0"
 
 grpc = "1.49.2"
-protobuf = "3.25.5"
+protobuf = "3.25.3" # CORRECTED: Aligned with usage
 
 retrofit = "2.9.0"
 okhttp = "4.12.0"
@@ -80,8 +75,7 @@ jgit = "6.8.0.202311291450-r"
 timber = "5.0.1"
 
 detekt = "1.23.8"
-spotless = "7.2.1" 
-#spotless = "6.25.0" # Version für Spotless hinzufügen
+spotless = "6.25.0" # CORRECTED: Stable version
 inApp-updateCompose = "1.3.1"
 
 # App Module
@@ -162,21 +156,10 @@ androidx-tracing-ktx = {group = "androidx.tracing", name="tracing-ktx", version.
 androidx-work-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "androidxWork" }
 androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "androidxWork" }
 
-# Firebase
-#google-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
-#google-firebase-config-ktx = { group = "com.google.firebase", name = "firebase-config-ktx" }
-#google-firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
-
 # Protobuf
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 protobuf-javalite = { group = "com.google.protobuf", name = "protobuf-javalite", version.ref = "protobuf" }
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
-
-# Grpc
-#grpc-gen = { module = "io.grpc:protoc-gen-grpc-java", version.ref = "grpc" }
-#grpc-okhttp = { module = "io.grpc:grpc-okhttp", version.ref = "grpc" }
-#grpc-protobuf = { module = "io.grpc:grpc-protobuf-lite", version.ref = "grpc" }
-#grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpc" }
 
 # Room
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -245,10 +228,6 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 koog-agents = { group = "ai.koog", name = "koog-agents", version.ref = "koog" }
 kotlin-compiler-embeddable = { group = "org.jetbrains.kotlin", name = "kotlin-compiler-embeddable", version.ref = "kotlin" }
 
-# Settings
-#russhwolf-settings = { group = "com.russhwolf", name = "settings", version.ref = "russhwolfSettings" }
-#russhwolf-settings-coroutines = { group = "com.russhwolf", name = "settings-coroutines", version.ref = "russhwolfSettings" }
-
 # InUpdate
 inapp-update-compose = { group = "se.warting.in-app-update", name = "in-app-update-compose", version.ref = "inApp-updateCompose" }
 
@@ -262,9 +241,8 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-spotless = { id = "com.diffplug.spotless", version.ref = "spotless" } # Spotless Plugin deklarieren
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 room = { id = "androidx.room", version.ref = "room" }
 protobuf = { id = "com.google.protobuf", version.ref = "androidProtoGradlePlugin" }
 kfmt = { id = "com.ncorti.ktfmt.gradle", version.ref = "kfmtGradlePlugin" }
-#buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }

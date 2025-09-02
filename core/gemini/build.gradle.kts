@@ -38,7 +38,6 @@ android {
         consumerProguardFiles("consumer-rules.pro")
         
         buildConfigField("String", "GEMINI_API_KEY", "\"${getApiKey()}\"")
-        //buildConfigField("String", "DEBUG", "\"${getDebug()}\"")
     }
 
     buildTypes {
@@ -51,7 +50,6 @@ android {
         }
 		debug {
             isMinifyEnabled = false
-			//isDebuggable = true
             proguardFiles(
 				getDefaultProguardFile("proguard-android-optimize.txt"),
 				"proguard-rules.pro"
@@ -64,16 +62,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 	
-	/*
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-	*/
-	
-    // ENTFERNT: Veralteter Block für Compose
     buildFeatures {
-        //compose = true
+        compose = true
         buildConfig = true
+    }
+	
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
 }
 
@@ -94,18 +89,17 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
-    // KORRIGIERT: Explizite Abhängigkeit hinzugefügt, um das Problem zu beheben
     implementation(libs.androidx.compose.material3)
     implementation(libs.google.generativeai)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 	
     // Ktor-Abhängigkeiten
-    implementation("io.ktor:ktor-client-core:3.2.3")
-    implementation("io.ktor:ktor-client-cio:3.2.3")
-    implementation("io.ktor:ktor-client-content-negotiation:3.2.3")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:3.2.3")
-    implementation("io.ktor:ktor-client-logging:3.2.3")
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.logging)
     
     testImplementation(libs.junit4)
 	
@@ -126,14 +120,3 @@ fun getApiKey(): String {
     }
     return properties.getProperty("GEMINI_API_KEY", "DEFAULT_API_KEY_IF_NOT_FOUND")
 }
-
-/*
-fun getDebug(): String {
-    val properties = Properties()
-    val localPropertiesFile = project.rootProject.file("local.properties")
-    if (localPropertiesFile.exists()) {
-        properties.load(FileInputStream(localPropertiesFile))
-    }
-    return properties.getProperty("DEBUG", "DEFAULT_DEBUG_VALUE_IF_NOT_FOUND")
-}
-*/

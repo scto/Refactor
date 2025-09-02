@@ -31,14 +31,7 @@ android {
 
     defaultConfig {
 		minSdk = libs.versions.android.minSdk.get().toInt()
-
-        // WICHTIG: Test-Runner für Instrumented Tests hinzufügen
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        /*
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-        }
-		*/
 		ksp {
 			arg("room.schemaLocation", file("schemas").absolutePath)
         }
@@ -60,11 +53,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 	
-	/*
-    kotlinOptions {
-        jvmTarget = "17"
+	buildFeatures {
+        compose = true
     }
-	*/
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
+    }
 }
 
 kotlin {
@@ -79,7 +73,7 @@ dependencies {
     implementation(libs.timber)
 
     // ViewModel and Compose
-    implementation(platform("androidx.compose:compose-bom:2024.12.01"))
+    implementation(platform(libs.androidx.compose.bom))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -91,34 +85,8 @@ dependencies {
     // DataStore (Proto)
     implementation("androidx.datastore:datastore:1.1.1")
     
-    // https://mvnrepository.com/artifact/com.google.protobuf/protoc
-    //implementation("com.google.protobuf:protoc:3.25.3")
-
-    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-bom
-    //implementation("com.google.protobuf:protobuf-bom:3.25.5")
-    //implementation("com.google.protobuf:protobuf-bom:3.25.3")
-    
-    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-parent
-    //implementation("com.google.protobuf:protobuf-parent:3.25.3")
-
-    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
-    //implementation("com.google.protobuf:protobuf-java:3.25.5")
-    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-javalite
-    //implementation("com.google.protobuf:protobuf-javalite:3.25.5")
-    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java-util
-    //implementation("com.google.protobuf:protobuf-java-util:3.25.5")
-    //implementation("com.google.protobuf:protobuf-java-util:3.25.3")
-    //implementation("com.google.protobuf:protobuf-java:3.25.3")
-    implementation("com.google.protobuf:protobuf-javalite:3.25.3")
-    //implementation(libs.protobuf.javalite)
-    
-    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
-    //implementation("com.google.protobuf:protobuf-kotlin:3.25.5")
-    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin-lite
-    //implementation("com.google.protobuf:protobuf-kotlin-lite:3.25.5")
-    //implementation("com.google.protobuf:protobuf-kotlin:3.25.5")
-    implementation("com.google.protobuf:protobuf-kotlin-lite:3.25.3")
-    //implementation(libs.protobuf.kotlin.lite)
+    implementation(libs.protobuf.javalite)
+    implementation(libs.protobuf.kotlin.lite)
     
     // Room Database
     implementation("androidx.room:room-runtime:2.6.1")
@@ -132,9 +100,7 @@ dependencies {
     implementation("androidx.security:security-crypto-ktx:1.1.0")
 
     // --- NEUE TEST-ABHÄNGIGKEITEN ---
-    // Standard Unit-Tests (laufen auf der JVM)
     testImplementation(libs.junit4)
-    // Instrumented Tests (laufen auf einem Android-Gerät/Emulator)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -146,21 +112,7 @@ dependencies {
 
 protobuf {
     protoc {
-        // BITTE WÄHLE DIE PASSENDE ZEILE FÜR DEINEN COMPUTER AUS UND ENTFERNE DIE KOMMENTARZEICHEN
-        
-        // --- Für Apple Silicon (M1/M2/M3) ---
-        // artifact = "com.google.protobuf:protoc:3.25.5:osx-aarch_64"
-
-        // --- Für Apple Mac (Intel) ---
-        // artifact = "com.google.protobuf:protoc:3.25.5:osx-x86_64"
-
-        // --- Für Windows ---
-        // artifact = "com.google.protobuf:protoc:3.25.5:windows-x86_64"
-        
-        // --- Für Linux ---
-        // artifact = "com.google.protobuf:protoc:3.25.5:linux-x86_64"
-        
-        artifact = "com.google.protobuf:protoc:3.25.3"
+        artifact = libs.protobuf.protoc.get().toString()
     }
     generateProtoTasks {
         all().forEach { task ->

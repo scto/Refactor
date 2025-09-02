@@ -9,27 +9,18 @@ plugins {
 	alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kfmt)
-	//alias(libs.plugins.buildkonfig)
 }
 
 android {
 	namespace = libs.versions.android.app.name.get().toString()
-    //namespace = "com.github.scto.refactor"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
 		applicationId = libs.versions.android.app.name.get().toString()
-        //applicationId = "com.github.scto.refactor"
 		minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = libs.versions.android.versionCode.get().toInt()
         versionName = libs.versions.android.versionName.get().toString()
-		/*
-        minSdk = 26
-        targetSdk = 34
-        versionCode = 100
-        versionName = "1.0.0"
-		*/
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -38,7 +29,6 @@ android {
         }
 
         buildConfigField("String", "GEMINI_API_KEY", "\"${getApiKey()}\"")
-        //buildConfigField("String", "DEBUG", "\"${getDebug()}\"")
     }
 
     buildTypes {
@@ -48,7 +38,6 @@ android {
         }
 		debug {
             isMinifyEnabled = false
-			//isDebuggable = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -58,22 +47,14 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     
-    /*
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-    */
-    
     buildFeatures {
-        //compose = true
+        compose = true
         buildConfig = true
     }
 	
-    /*
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
-    */
 	
     packaging {
         resources {
@@ -93,13 +74,11 @@ dependencies {
     implementation(project(":data:local"))
     implementation(project(":features:git"))
 	implementation(project(":self-update"))
-	//implementation(project(":svg-converter"))
     implementation(project(":ui:home"))
     implementation(project(":ui:onboarding"))
     implementation(project(":ui:settings"))
     
 	implementation(libs.androidx.hilt.navigation.compose)
-    //implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     implementation(libs.timber)
     implementation(libs.androidx.core.ktx)
@@ -117,10 +96,7 @@ dependencies {
 	
     // Hilt
 	implementation(libs.hilt.android)
-    //implementation("com.google.dagger:hilt-android:2.51.1")
     ksp(libs.hilt.compiler)
-	//kapt(libs.hilt.compiler)
-    //kapt("com.google.dagger:hilt-compiler:2.51.1")
 	
 	testImplementation(libs.junit4)
 	
@@ -141,14 +117,3 @@ fun getApiKey(): String {
     }
     return properties.getProperty("GEMINI_API_KEY", "DEFAULT_API_KEY_IF_NOT_FOUND")
 }
-
-/*
-fun getDebug(): String {
-    val properties = Properties()
-    val localPropertiesFile = project.rootProject.file("local.properties")
-    if (localPropertiesFile.exists()) {
-        properties.load(FileInputStream(localPropertiesFile))
-    }
-    return properties.getProperty("DEBUG", "DEFAULT_DEBUG_VALUE_IF_NOT_FOUND")
-}
-*/

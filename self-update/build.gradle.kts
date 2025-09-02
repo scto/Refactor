@@ -18,7 +18,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.serialization) // Hinzufügen für Kotlinx Serialization
+    alias(libs.plugins.kotlin.serialization)
 }
 android {
 	namespace = libs.versions.android.selfupdate.name.get().toString()
@@ -32,12 +32,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
-    /*
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-	*/
 }
 
 kotlin {
@@ -52,9 +46,9 @@ dependencies {
     implementation(libs.timber)
 
     // Ktor-Abhängigkeiten
-    implementation("io.ktor:ktor-client-core:3.2.3")
-    implementation("io.ktor:ktor-client-cio:3.2.3")
-    implementation("io.ktor:ktor-client-content-negotiation:3.2.3")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:3.2.3")
-    implementation("io.ktor:ktor-client-logging:3.2.3")
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.logging)
 }
