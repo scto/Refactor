@@ -10,7 +10,10 @@ import com.github.scto.refactor.features.git.UserSettings
 import com.github.scto.refactor.features.git.crypto.CryptoManager
 import com.github.scto.refactor.features.git.data.local.db.RepositoryDao
 import com.github.scto.refactor.features.git.data.local.db.RepositoryEntity
-import com.github.scto.refactor.features.git.ui.GitContract.*
+//import com.github.scto.refactor.features.git.ui.GitContract.*
+import com.github.scto.refactor.features.git.ui.GitContract.GitUiState
+import com.github.scto.refactor.features.git.ui.GitContract.GitEvent
+import com.github.scto.refactor.features.git.ui.GitContract.GitEffect
 import com.google.protobuf.ByteString
 import java.io.File
 import kotlinx.coroutines.flow.*

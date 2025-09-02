@@ -108,8 +108,7 @@ class JGitClient : GitClient {
                 val results = pushCommand.call()
                 results.forEach { result ->
                     result.remoteUpdates.forEach { update ->
-                        Timber.tag("GitClient")
-                            .i("Push status: ${update.status} to ${result.remoteName}")
+                        Timber.tag("GitClient").i("Push status: ${update.status} to ${result.uri}")
                     }
                 }
             }

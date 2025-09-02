@@ -14,7 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.github.scto.refactor.features.git.di.AppDataContainer
-import com.github.scto.refactor.features.git.ui.GitContract.*
+//import com.github.scto.refactor.features.git.ui.GitContract.*
+import com.github.scto.refactor.features.git.ui.GitContract.GitUiState
+import com.github.scto.refactor.features.git.ui.GitContract.GitEvent
+import com.github.scto.refactor.features.git.ui.GitContract.GitEffect
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
