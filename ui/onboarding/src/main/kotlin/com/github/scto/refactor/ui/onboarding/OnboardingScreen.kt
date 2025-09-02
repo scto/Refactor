@@ -15,7 +15,9 @@
  */
 package com.github.scto.refactor.ui.onboarding
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
@@ -32,15 +34,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-
 import kotlinx.coroutines.launch
-
-import com.github.scto.refactor.R
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -92,19 +91,19 @@ fun OnboardingPageContent(page: OnboardingPage) {
     ) {
         Image(
             painter = painterResource(id = page.image),
-            contentDescription = page.title,
+            contentDescription = stringResource(id = page.title),
             modifier = Modifier.size(250.dp).padding(bottom = 32.dp),
             contentScale = ContentScale.Fit,
         )
         Text(
-            text = page.title,
+            text = stringResource(id = page.title),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = page.description,
+            text = stringResource(id = page.description),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
         )

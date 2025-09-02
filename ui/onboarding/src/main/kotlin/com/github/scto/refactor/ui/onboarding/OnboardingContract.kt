@@ -19,10 +19,9 @@ package com.github.scto.refactor.ui.onboarding
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
-import kotlinx.coroutines.launch
-
 // Definiert die Daten für eine einzelne Onboarding-Seite
-data class OnboardingPage(@StringRes val title: String, @StringRes val description: String, @DrawableRes val image: Int)
+// KORREKTUR: Typen von title und description auf Int geändert, um @StringRes IDs zu akzeptieren
+data class OnboardingPage(@StringRes val title: Int, @StringRes val description: Int, @DrawableRes val image: Int)
 
 // WICHTIGER HINWEIS:
 // Sie müssen noch die drei Bilder (ic_onboarding_1, ic_onboarding_2, ic_onboarding_3)
@@ -32,30 +31,18 @@ data class OnboardingPage(@StringRes val title: String, @StringRes val descripti
 val onboardingPages =
     listOf(
         OnboardingPage(
-			title = R.string.onboarding_main_title,
-			//title = Text(stringResource(id = R.string.onboarding_main_title)),
-            //title = "Willkommen bei Refactor",
-			description = R.string.onboarding_main_description,
-			//description = Text(stringResource(id = R.string.onboarding_main_description)),
-            //description = "Dein intelligenter Assistent zur Modernisierung von Android-Projekten.",
+            title = R.string.onboarding_main_title,
+            description = R.string.onboarding_main_description,
             image = R.drawable.ic_onboarding_1,
         ),
         OnboardingPage(
-			title = R.string.onboarding_processors_title,
-			//title = Text(stringResource(id = R.string.onboarding_processors_title)),
-            //title = "Prozessoren auswählen",
-			description = R.string.onboarding_processors_description,
-			//description = Text(stringResource(id = R.string.onboarding_processors_description)),
-            //description = "Wähle aus einer Vielzahl von Prozessoren, um deinen Code zu analysieren und zu verbessern.",
+            title = R.string.onboarding_processors_title,
+            description = R.string.onboarding_processors_description,
             image = R.drawable.ic_onboarding_2,
         ),
         OnboardingPage(
-			title = R.string.onboarding_run_title,
-			//title = Text(stringResource(id = R.string.onboarding_processors_title)),
-            //title = "Los geht's!",
-			description = R.string.onboarding_run_description,
-			//description = Text(stringResource(id = R.string.onboarding_processors_description)),
-            //description = "Starte jetzt und bringe dein Projekt auf das nächste Level.",
+            title = R.string.onboarding_run_title,
+            description = R.string.onboarding_run_description,
             image = R.drawable.ic_onboarding_3,
         ),
     )

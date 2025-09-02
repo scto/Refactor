@@ -32,28 +32,27 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.res.stringResource
-
-import com.github.scto.refactor.R
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.github.scto.refactor.ui.settings.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit) {
+fun AboutSettingsScreen(viewModel: SettingsViewModel = hiltViewModel(), onNavigateBack: () -> Unit) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
 
     Scaffold(
         topBar = {
             TopAppBar(
-				title = { Text(stringResource(id = R.string.settings_about_title)) },
+                title = { Text(stringResource(id = R.string.settings_about_title)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        // KORRIGIERT: Explizite Parameterbenennung zur Behebung der Mehrdeutigkeit
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = { Text(stringResource(id = R.string.action_back)) },
+                            contentDescription = stringResource(id = R.string.action_back),
                         )
                     }
                 },
@@ -66,21 +65,14 @@ fun AboutSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-				Text(stringResource(id = R.string.app_name)),
-				style = MaterialTheme.typography.headlineLarge),
-				fontWeight = FontWeight.Bold,
-				/*
-                "Refactor",
+                text = stringResource(id = R.string.app_name),
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold,
-				*/
             )
             Spacer(modifier = Modifier.height(8.dp))
-			Text(stringResource(id = R.string.settings_about_version), "${uiState.appVersion}", style = MaterialTheme.typography.bodyLarge),
-            //Text("Version ${uiState.appVersion}", style = MaterialTheme.typography.bodyLarge)
+            Text("Version ${uiState.appVersion}", style = MaterialTheme.typography.bodyLarge)
             Spacer(modifier = Modifier.height(24.dp))
-			Text(stringResource(id = R.string.settings_about_developer), style = MaterialTheme.typography.bodyMedium),
-            //Text("Entwickelt von [Dein Name/Team]", style = MaterialTheme.typography.bodyMedium)
+            Text(text = stringResource(id = R.string.settings_about_developer), style = MaterialTheme.typography.bodyMedium)
             Spacer(modifier = Modifier.height(24.dp))
             Button(
                 onClick = {
@@ -89,8 +81,7 @@ fun AboutSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
                     context.startActivity(intent)
                 }
             ) {
-				Text(stringResource(id = R.string.settings_about_source_code_title))
-                //Text("Source Code")
+                Text(stringResource(id = R.string.settings_about_source_code_title))
             }
         }
     }
