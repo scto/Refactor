@@ -1,19 +1,35 @@
+/*
+ * Copyright 2025, S.C.T.O
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.github.scto.refactor.features.git.ui
 
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+
 import com.github.scto.refactor.features.git.GitClient
 import com.github.scto.refactor.features.git.JGitClient
 import com.github.scto.refactor.features.git.UserSettings
 import com.github.scto.refactor.features.git.crypto.CryptoManager
 import com.github.scto.refactor.features.git.data.local.db.RepositoryDao
 import com.github.scto.refactor.features.git.data.local.db.RepositoryEntity
-//import com.github.scto.refactor.features.git.ui.GitContract.*
-import com.github.scto.refactor.features.git.ui.GitContract.GitUiState
-import com.github.scto.refactor.features.git.ui.GitContract.GitEvent
 import com.github.scto.refactor.features.git.ui.GitContract.GitEffect
+import com.github.scto.refactor.features.git.ui.GitContract.GitEvent
+import com.github.scto.refactor.features.git.ui.GitContract.GitUiState
+
 import com.google.protobuf.ByteString
 import java.io.File
 import kotlinx.coroutines.flow.*
@@ -38,14 +54,12 @@ class GitViewModel(
     val effect: SharedFlow<GitEffect> = _effect.asSharedFlow()
 
     init {
-        // Lade und ENTSCHLÜSSLE UserSettings aus dem DataStore
         viewModelScope.launch {
             userSettingsStore.data.collect { settings ->
                 _uiState.update {
                     (it as? GitUiState.Success)?.copy(
                         email = settings.email,
                         credentialsUsername = settings.username,
-                        // KORRIGIERT: Entschlüsselt das Token beim Laden
                         credentialsToken =
                             if (settings.credentials.isEmpty) ""
                             else cryptoManager.decrypt(settings.credentials.toByteArray()),
@@ -64,7 +78,6 @@ class GitViewModel(
                     updateSuccessState { it.copy(localPath = event.newPath) }
                 is GitEvent.OnBranchNameChange ->
                     updateSuccessState { it.copy(branchName = event.newName) }
-                // KORRIGIERT: Fehlende und falsche Event-Handler angepasst
                 is GitEvent.OnEmailChange -> updateSuccessState { it.copy(email = event.newEmail) }
                 is GitEvent.OnCredentialsUsernameChange ->
                     updateSuccessState { it.copy(credentialsUsername = event.username) }
@@ -134,13 +147,11 @@ class GitViewModel(
         val currentState = _uiState.value
         if (currentState !is GitUiState.Success) return
 
-        // KORRIGIERT: Verschlüsselt nur das Token/Passwort
         val encryptedCredentials = cryptoManager.encrypt(currentState.credentialsToken)
 
         userSettingsStore.updateData { settings ->
             settings
                 .toBuilder()
-                // Speichert den Benutzernamen im Klartext und das Token verschlüsselt
                 .setUsername(currentState.credentialsUsername)
                 .setEmail(currentState.email)
                 .setCredentials(ByteString.copyFrom(encryptedCredentials))
