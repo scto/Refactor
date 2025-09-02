@@ -17,50 +17,38 @@ package com.github.scto.refactor.ui.settings
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import androidx.hilt.navigation.compose.hiltViewModel
 
-const val SETTINGS_GRAPH_ROUTE_PATTERN = "settings_graph"
-const val MAIN_SETTINGS_ROUTE = "main_settings_route"
-const val THEME_SETTINGS_ROUTE = "theme_settings_route"
-const val DEBUG_SETTINGS_ROUTE = "debug_settings_route"
-const val ABOUT_SETTINGS_ROUTE = "about_settings_route"
+const val SETTINGS_ROUTE = "settings_route"
+const val MAIN_SETTINGS_ROUTE = "main_settings"
+const val THEME_SETTINGS_ROUTE = "theme_settings"
+const val DEBUG_SETTINGS_ROUTE = "debug_settings"
+const val ABOUT_SETTINGS_ROUTE = "about_settings"
 
-/*
-sealed class SettingsScreen(val route: String) {
-    object Main : SettingsScreen("settings_main")
-	object About : SettingsScreen("settings_about")
-    object Theme : SettingsScreen("settings_theme")
-}
-*/
-
-fun NavController.navigateToSettingsGraph(navOptions: NavOptions? = null) {
-    this.navigate(SETTINGS_GRAPH_ROUTE_PATTERN, navOptions)
+fun NavController.navigateToSettings() {
+    this.navigate(SETTINGS_ROUTE)
 }
 
-fun NavGraphBuilder.settingsGraph(onBackClick: () -> Unit, navController: NavController) {
-    navigation(route = SETTINGS_GRAPH_ROUTE_PATTERN, startDestination = MAIN_SETTINGS_ROUTE) {
-        composable(route = MAIN_SETTINGS_ROUTE) {
-            MainSettingsScreen(
-                onBackClick = onBackClick,
-                onNavigate = { route -> navController.navigate(route) },
-            )
+fun NavGraphBuilder.settingsScreen(navController: NavController) {
+    navigation(
+        route = SETTINGS_ROUTE,
+        startDestination = MAIN_SETTINGS_ROUTE,
+    ) {
+        composable(MAIN_SETTINGS_ROUTE) {
+            MainSettingsScreen(navController = navController)
         }
-		composable(route = THEME_SETTINGS_ROUTE) {
-            ThemeSettingsScreen(
-				onBackClick = { navController.popBackStack() }
-			)
+        composable(THEME_SETTINGS_ROUTE) {
+            val viewModel: SettingsViewModel = hiltViewModel()
+            ThemeSettingsScreen(viewModel = viewModel, onNavigateBack = { navController.popBackStack() })
         }
-		composable(route = DEBUG_SETTINGS_ROUTE) {
-            DebugSettingsScreen(
-				onBackClick = { navController.popBackStack() }
-			)
+        composable(DEBUG_SETTINGS_ROUTE) {
+            val viewModel: SettingsViewModel = hiltViewModel()
+            DebugSettingsScreen(viewModel = viewModel, onNavigateBack = { navController.popBackStack() })
         }
-        composable(route = ABOUT_SETTINGS_ROUTE) {
-            AboutSettingsScreen(
-				onBackClick = { navController.popBackStack() }
-			)
+        composable(ABOUT_SETTINGS_ROUTE) {
+            AboutSettingsScreen(onNavigateBack = { navController.popBackStack() })
         }
     }
 }

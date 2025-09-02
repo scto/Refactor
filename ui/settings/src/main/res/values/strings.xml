@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_main_title">Einstellungen</string>
+    <string name="settings_theme_title">Design</string>
+    <string name="settings_debug_title">Debug</string>
+    <string name="settings_about_title">Über</string>
+    <string name="action_back">Zurück</string>
+
+    <string name="setting_theme_title">Thema</string>
+    <string name="setting_theme_dynamic_colors_title">Dynamische Farben</string>
+    <string name="setting_theme_dynamic_colors_supporting_content">Verwendet Farben aus deinem Hintergrundbild</string>
+
+    <string name="settings_about_version_title">Version</string>
+    <string name="settings_about_developer_title">Entwickler</string>
+</resources>
