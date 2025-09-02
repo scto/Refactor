@@ -66,7 +66,12 @@ fun HomeScreen(viewModel: RefactorViewModel = hiltViewModel()) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Spacer(modifier = Modifier.height(16.dp))
-            RefactorTabs(uiState = uiState, viewModel = viewModel)
+            // KORREKTUR: Der Modifier wird hier übergeben
+            RefactorTabs(
+                uiState = uiState,
+                viewModel = viewModel,
+                modifier = Modifier.weight(1f)
+            )
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = { viewModel.onEvent(UiEvent.StartRefactoringClicked) },
@@ -109,10 +114,16 @@ private fun PackageNameInputs(targetPackageName: String, onNewChanged: (String) 
 }
 
 @Composable
-private fun RefactorTabs(uiState: UiState, viewModel: RefactorViewModel) {
+// KORREKTUR: Die Funktion akzeptiert jetzt einen Modifier
+private fun RefactorTabs(
+    uiState: UiState,
+    viewModel: RefactorViewModel,
+    modifier: Modifier = Modifier
+) {
     var selectedTabIndex by remember { mutableStateOf(0) }
     val tabs = listOf("Prozessoren", "Protokoll")
-    Column(modifier = Modifier.weight(1f)) {
+    // KORREKTUR: Der übergebene Modifier wird hier verwendet
+    Column(modifier = modifier) {
         TabRow(selectedTabIndex = selectedTabIndex) {
             tabs.forEachIndexed { index, title ->
                 Tab(
@@ -135,7 +146,6 @@ private fun RefactorTabs(uiState: UiState, viewModel: RefactorViewModel) {
     }
 }
 
-// In ui/home/src/main/kotlin/com/github/scto/refactor/ui/home/HomeScreen.kt
 @Composable
 fun ProcessorsTab(state: UiState, onProcessorToggled: (RefactoringOption, Boolean) -> Unit) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -148,7 +158,7 @@ fun ProcessorsTab(state: UiState, onProcessorToggled: (RefactoringOption, Boolea
                     checked = state.options.contains(option),
                     onCheckedChange = { isEnabled -> onProcessorToggled(option, isEnabled) },
                 )
-                Text(option.displayText, modifier = Modifier.padding(start = 8.dp))
+                Text(option.displayText, Modifier.padding(start = 8.dp))
             }
         }
     }
