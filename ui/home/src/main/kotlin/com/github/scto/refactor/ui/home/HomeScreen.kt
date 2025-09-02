@@ -135,6 +135,7 @@ private fun RefactorTabs(uiState: UiState, viewModel: RefactorViewModel) {
     }
 }
 
+// In ui/home/src/main/kotlin/com/github/scto/refactor/ui/home/HomeScreen.kt
 @Composable
 fun ProcessorsTab(state: UiState, onProcessorToggled: (RefactoringOption, Boolean) -> Unit) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
