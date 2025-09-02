@@ -30,18 +30,18 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-
+import androidx.navigation.NavController
 import com.github.scto.refactor.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainSettingsScreen(onBackClick: () -> Unit, onNavigate: (String) -> Unit) {
+fun MainSettingsScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(id = R.string.settings_main_title)) },
                 navigationIcon = {
-                    IconButton(onClick = onBackClick) {
+                    IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(id = R.string.action_back),
@@ -54,15 +54,15 @@ fun MainSettingsScreen(onBackClick: () -> Unit, onNavigate: (String) -> Unit) {
         Column(modifier = Modifier.padding(contentPadding)) {
             ListItem(
                 headlineContent = { Text(stringResource(id = R.string.settings_theme_title)) },
-                modifier = Modifier.clickable { onNavigate(THEME_SETTINGS_ROUTE) },
+                modifier = Modifier.clickable { navController.navigate(THEME_SETTINGS_ROUTE) },
             )
 			ListItem(
                 headlineContent = { Text(stringResource(id = R.string.settings_debug_title)) },
-                modifier = Modifier.clickable { onNavigate(DEBUG_SETTINGS_ROUTE) },
+                modifier = Modifier.clickable { navController.navigate(DEBUG_SETTINGS_ROUTE) },
             )
             ListItem(
                 headlineContent = { Text(stringResource(id = R.string.settings_about_title)) },
-                modifier = Modifier.clickable { onNavigate(ABOUT_SETTINGS_ROUTE) },
+                modifier = Modifier.clickable { navController.navigate(ABOUT_SETTINGS_ROUTE) },
             )
         }
     }

@@ -31,19 +31,13 @@ android {
 		minSdk = libs.versions.android.minSdk.get().toInt()
     }
 
-    /*
     buildFeatures {
         compose = true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
-	
-	kotlinOptions {
-        jvmTarget = "17"
-    }
-    */
 	
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -57,14 +51,11 @@ kotlin {
     }
 }
 dependencies {
-    // Abhängigkeit zum :data:local Modul für den Zugriff auf UserPreferencesRepository
     implementation(project(":data:local"))
 
-    // KORRIGIERT: Hilt für Dependency Injection auf libs umgestellt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
-    // Standard-Abhängigkeiten für Compose und Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -74,7 +65,5 @@ dependencies {
 
     implementation(libs.androidx.lifecycle.viewModelCompose)
     implementation(libs.timber)
-
-    // KORRIGIERT: Navigation auf libs umgestellt
     implementation(libs.androidx.navigation.compose)
 }

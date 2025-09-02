@@ -40,8 +40,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 
 import com.github.scto.refactor.R
 
@@ -54,13 +54,11 @@ fun ThemeSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
         topBar = {
             TopAppBar(
 				title = { Text(stringResource(id = R.string.settings_theme_title)) },
-                //title = { Text("Erscheinungsbild") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-							contentDescription = { Text(stringResource(id = R.string.action_back)) },
-                            //contentDescription = "Zurück",
+							contentDescription = stringResource(id = R.string.action_back),
                         )
                     }
                 },
@@ -68,16 +66,10 @@ fun ThemeSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
         }
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
-            // Abschnitt für die Theme-Auswahl
             Text(
-				Text(stringResource(id = R.string.setting_theme_title)),
+				stringResource(id = R.string.setting_theme_title),
 				style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-				/*
-                text = "Theme",
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-				*/
             )
             ThemeSetting.values().forEach { theme ->
                 ThemeOptionRow(
@@ -89,13 +81,10 @@ fun ThemeSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
 
             Divider(modifier = Modifier.padding(vertical = 8.dp))
 
-            // Abschnitt für Dynamic Color mit einem Switch
             ListItem(
 				headlineContent = { Text(stringResource(id = R.string.setting_theme_dynamic_colors_title)) },
-                //headlineContent = { Text("Dynamische Farben") },
                 supportingContent = {
 					Text(stringResource(id = R.string.setting_theme_dynamic_colors_supporting_content))
-                    //Text("Farben aus dem Hintergrundbild verwenden (nur Android 12+)")
                 },
                 trailingContent = {
                     Switch(

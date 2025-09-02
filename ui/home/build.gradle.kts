@@ -20,7 +20,6 @@ plugins {
 	alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 	alias(libs.plugins.hilt)
-    //alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.ksp)
 }
 
@@ -37,18 +36,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 	
-    /*
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-	
-    buildFeatures {
+	buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
-	*/
 }
 
 kotlin {
@@ -58,16 +51,11 @@ kotlin {
 }
 
 dependencies {
-	// KORRIGIERT: Implementierung des zentralen :core:gemini-Moduls
     implementation(project(":core:gemini"))
 	
-    // KORRIGIERT: Hilt-Abhängigkeiten hinzugefügt
     implementation(libs.hilt.android)
-    //implementation("com.google.dagger:hilt-android:2.51.1")
 	ksp(libs.hilt.compiler)
-    //kapt("com.google.dagger:hilt-compiler:2.51.1")
 	implementation(libs.androidx.hilt.navigation.compose)
-    //implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
