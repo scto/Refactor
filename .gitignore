@@ -196,3 +196,5 @@ secrets.properties
 .uuid
 .androidide/
 .git/
+
+build.analycis.txt
