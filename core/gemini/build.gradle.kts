@@ -16,23 +16,24 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.FileInputStream
 import java.util.Properties
+import config.ConfigData
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    //alias(libs.plugins.android.library)
+    //alias(libs.plugins.kotlin.android)
+	alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kfmt)
+	id("module-setup")
 }
 
 android {
-    namespace = libs.versions.android.core.gemini.name.get().toString()
-	
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+	namespace = ConfigData.applicationBundle + ".core.gemini"
+    compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk = ConfigData.minSdkVersion
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -58,15 +59,15 @@ android {
     }
 	
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
-	
+
     buildFeatures {
-        compose = true
         buildConfig = true
+        compose = true
     }
-	
+
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
@@ -74,7 +75,7 @@ android {
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
+        jvmTarget = ConfigData.javaVersion.toString()
     }
 }
 

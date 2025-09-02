@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import config.ConfigData
 
 plugins {
     alias(libs.plugins.android.library)
@@ -23,39 +24,32 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.protobuf)
     alias(libs.plugins.kfmt)
+	id("module-setup")
 }
 
 android {
-	namespace = libs.versions.android.features.git.name.get().toString()
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+	namespace = ConfigData.applicationBundle + ".feature.git"
+    compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
-		minSdk = libs.versions.android.minSdk.get().toInt()
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = ConfigData.minSdkVersion
+		
+		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+		
 		ksp {
 			arg("room.schemaLocation", file("schemas").absolutePath)
         }
     }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-		debug {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
 	
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
-	
-	buildFeatures {
+
+    buildFeatures {
         compose = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
@@ -63,7 +57,7 @@ android {
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
+        jvmTarget = ConfigData.javaVersion.toString()
     }
 }
 

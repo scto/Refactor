@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import config.ConfigData
 
 plugins {
 	alias(libs.plugins.android.library)
@@ -21,16 +21,17 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 	alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+	id("module-setup")
 }
 
 android {
-	namespace = libs.versions.android.ui.settings.name.get().toString()
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+	namespace = ConfigData.applicationBundle + ".ui.settings"
+    compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
-		minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk = ConfigData.minSdkVersion
     }
-
+    
     buildFeatures {
         compose = true
     }
@@ -39,17 +40,18 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
 	
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+	compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
 }
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
+        jvmTarget = ConfigData.javaVersion.toString()
     }
 }
+
 dependencies {
     implementation(project(":data:local"))
 

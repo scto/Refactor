@@ -47,6 +47,7 @@ ksp = "2.0.0-1.0.21" # CORRECTED: Version compatible with Kotlin 2.0.0
 ktor = "2.3.11" # CORRECTED: Stable version
 koog = "0.2.1"
 kfmtGradlePlugin = "0.23.0"
+koin = "4.1.0"
 eventbus = "3.3.1"
 glide = "4.16.0"
 bsh = "3.0.0-SNAPSHOT"
@@ -54,7 +55,7 @@ ktsh = "1.0.0"
 leakcanaryAndroid = "2.14"
 lsp4j = "0.23.1"
 
-kermit = "2.0.4"
+kermit = "2.0.6"
 
 coil = "2.7.0"
 
@@ -74,7 +75,8 @@ mockk = "1.14.2"
 jgit = "6.8.0.202311291450-r"
 timber = "5.0.1"
 
-detekt = "1.23.8"
+detektPlugin = "1.23.8"
+detektComposeRule = "1.4.0"
 spotless = "6.25.0" # CORRECTED: Stable version
 inApp-updateCompose = "1.3.1"
 
@@ -194,7 +196,6 @@ leakcanary-android = { group = "com.squareup.leakcanary", name = "leakcanary-and
 lsp4j = { group = "org.eclipse.lsp4j", name = "org.eclipse.lsp4j", version.ref = "lsp4j" }
 utilcode = { group = "com.blankj", name = "utilcodex", version = "1.31.1" }
 
-
 # Retrofit
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
@@ -228,8 +229,15 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 koog-agents = { group = "ai.koog", name = "koog-agents", version.ref = "koog" }
 kotlin-compiler-embeddable = { group = "org.jetbrains.kotlin", name = "kotlin-compiler-embeddable", version.ref = "kotlin" }
 
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+
 # InUpdate
 inapp-update-compose = { group = "se.warting.in-app-update", name = "in-app-update-compose", version.ref = "inApp-updateCompose" }
+
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detektPlugin" }
+detekt-composeRules = { module = "ru.kode:detekt-rules-compose", version.ref = "detektComposeRule" }
+detekt-gradlePlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detektPlugin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

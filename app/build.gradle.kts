@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.FileInputStream
 import java.util.Properties
+import config.ConfigData
 
 plugins {
 	alias(libs.plugins.android.application)
@@ -9,18 +10,19 @@ plugins {
 	alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kfmt)
+	id("detekt-setup")
 }
 
 android {
-	namespace = libs.versions.android.app.name.get().toString()
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+	namespace = ConfigData.applicationBundle
+    compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
-		applicationId = libs.versions.android.app.name.get().toString()
-		minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = libs.versions.android.versionCode.get().toInt()
-        versionName = libs.versions.android.versionName.get().toString()
+        applicationId = ConfigData.applicationBundle
+        minSdk = ConfigData.minSdkVersion
+        targetSdk = ConfigData.targetSdkVersion
+        versionCode = ConfigData.versionCode
+        versionName = ConfigData.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -43,15 +45,15 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
-    
+
     buildFeatures {
-        compose = true
         buildConfig = true
+        compose = true
     }
-	
+
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
@@ -65,7 +67,7 @@ android {
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
+        jvmTarget = ConfigData.javaVersion.toString()
     }
 }
 

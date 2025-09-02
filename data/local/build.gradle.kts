@@ -14,39 +14,60 @@
  * limitations under the License.
  */
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import config.ConfigData
 
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    //alias(libs.plugins.android.library)
+    //alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kfmt)
+	id("module-setup")
 }
 
-
 android {
-	namespace = libs.versions.android.data.local.name.get().toString()
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+	namespace = ConfigData.applicationBundle + ".data.local"
+    compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
-		minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk = ConfigData.minSdkVersion
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+		debug {
+            isMinifyEnabled = false
+            proguardFiles(
+				getDefaultProguardFile("proguard-android-optimize.txt"),
+				"proguard-rules.pro"
+			)
+        }
     }
 	
-	/*
-    kotlinOptions {
-        jvmTarget = "17"
+    compileOptions {
+        sourceCompatibility = ConfigData.javaVersion
+        targetCompatibility = ConfigData.javaVersion
     }
-	*/
+
+    buildFeatures {
+        buildConfig = true
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
+    }
 }
 
 kotlin {
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_17
+        jvmTarget = ConfigData.javaVersion.toString()
     }
 }
 
