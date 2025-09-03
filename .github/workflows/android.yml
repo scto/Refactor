@@ -7,8 +7,15 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        build-type: [debug]
     steps:
+	  - name: Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.12.1
+        with:
+          access_token: ${{ github.token }}
+		  
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -21,15 +28,13 @@ jobs:
       - name: Give permission to executable
         run: chmod +x gradlew
 
-      - name: Build with gradle
-        uses: gradle/gradle-build-action@v3.1.0
-        with:
-          gradle-version: nightly
-          arguments: assembleDebug
+      - name: Generate Debug APK
+        run: ./gradlew assemble${{ matrix.build-type }}
 
-      - name: Upload debug apk
-        uses: actions/upload-artifact@v4
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@master
         with:
-          name: apk-debug
-          path: app/build/outputs/apk/debug
+          name: app-${{ matrix.build-type }}
+          path: app/build/outputs/apk/${{ matrix.build-type }}/app-${{ matrix.build-type }}.apk
 
+      
