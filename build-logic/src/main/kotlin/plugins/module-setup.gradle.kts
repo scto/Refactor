@@ -22,7 +22,7 @@ android {
             languageSettings.enableLanguageFeature("ExplicitBackingFields")
         }
         compilerOptions {
-            jvmTarget.set(JvmTarget.from(ConfigData.javaVersion.toString()))
+			jvmTarget.set(config.ConfigData.jvmTarget)
         }
     }
 
