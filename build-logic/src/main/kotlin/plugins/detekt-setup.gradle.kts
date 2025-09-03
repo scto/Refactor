@@ -2,6 +2,8 @@ import config.ConfigData
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.kotlin.dsl.the
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("io.gitlab.arturbosch.detekt")
@@ -39,9 +41,9 @@ tasks.withType<Detekt>().configureEach {
 }
 
 tasks.withType<Detekt>().configureEach {
-    jvmTarget = config.ConfigData.javaVersion.toString()
+    jvmTarget = ConfigData.javaVersion.toString()
 }
 
 tasks.withType<DetektCreateBaselineTask>().configureEach {
-    jvmTarget = config.ConfigData.javaVersion.toString()
+    jvmTarget = ConfigData.javaVersion.toString()
 }
