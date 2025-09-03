@@ -13,4 +13,5 @@ object ConfigData {
 	const val versionName = "1.0.0"
 	
     val javaVersion = JavaVersion.VERSION_17
+    val jvmTarget = JvmTarget.JVM_17
 }
