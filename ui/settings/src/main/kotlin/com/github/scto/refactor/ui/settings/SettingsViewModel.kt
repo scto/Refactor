@@ -21,7 +21,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,11 +32,21 @@ import com.github.scto.refactor.data.local.UserPreferencesRepository
 class SettingsViewModel @Inject constructor(
     private val userPreferencesRepository: UserPreferencesRepository,
 ) : ViewModel() {
+
     val uiState: StateFlow<SettingsUiState> =
-        userPreferencesRepository.userPreferences.map {
+        combine(
+            userPreferencesRepository.theme,
+            userPreferencesRepository.dynamicColor,
+            userPreferencesRepository.apiKey,
+            userPreferencesRepository.debug,
+            userPreferencesRepository.appVersion
+        ) { theme, dynamicColor, apiKey, debug, appVersion ->
             SettingsUiState(
-                theme = it.theme,
-                dynamicColor = it.dynamicColor,
+                theme = theme?.let { ThemeSetting.valueOf(it) } ?: ThemeSetting.SYSTEM,
+                dynamicColor = dynamicColor,
+                apiKey = apiKey ?: "",
+                debug = debug,
+                appVersion = appVersion ?: "N/A"
             )
         }.stateIn(
             scope = viewModelScope,
@@ -48,12 +58,27 @@ class SettingsViewModel @Inject constructor(
         when (event) {
             is SettingsUiEvent.OnThemeChanged -> {
                 viewModelScope.launch {
-                    userPreferencesRepository.setTheme(event.theme)
+                    userPreferencesRepository.saveTheme(event.theme.name)
                 }
             }
             is SettingsUiEvent.OnDynamicColorChanged -> {
                 viewModelScope.launch {
-                    userPreferencesRepository.setDynamicColor(event.dynamicColor)
+                    userPreferencesRepository.saveDynamicColor(event.dynamicColor)
+                }
+            }
+            is SettingsUiEvent.OnApiKeyChanged -> {
+                viewModelScope.launch {
+                    userPreferencesRepository.saveApiKey(event.apiKey)
+                }
+            }
+            is SettingsUiEvent.OnAppVersionChanged -> {
+                viewModelScope.launch {
+                    userPreferencesRepository.saveAppVersion(event.appVersion)
+                }
+            }
+            is SettingsUiEvent.OnDebugChanged -> {
+                viewModelScope.launch {
+                    userPreferencesRepository.saveDebug(event.debug)
                 }
             }
         }

@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-    namespace = ConfigData.applicationBundle
+    namespace = ConfingData.applicationBundle
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
@@ -22,7 +22,7 @@ android {
             languageSettings.enableLanguageFeature("ExplicitBackingFields")
         }
         compilerOptions {
-			jvmTarget.set(config.ConfigData.jvmTarget)
+			jvmTarget.set(ConfigData.jvmTarget)
         }
     }
 
