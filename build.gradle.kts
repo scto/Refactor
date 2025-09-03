@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 //import com.diffplug.gradle.spotless.SpotlessTask
-import com.ncorti.ktfmt.gradle.tasks.*
+//import com.ncorti.ktfmt.gradle.tasks.*
 
 plugins {
     alias(libs.plugins.android.application) apply false
