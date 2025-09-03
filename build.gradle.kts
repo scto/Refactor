@@ -25,9 +25,9 @@ plugins {
 	alias(libs.plugins.hilt) apply false
     alias(libs.plugins.ksp) apply false
 	alias(libs.plugins.room) apply false
-	alias(libs.plugins.detekt) apply false
+	//alias(libs.plugins.detekt) apply false
     alias(libs.plugins.protobuf) apply false
-    alias(libs.plugins.kfmt)
+    //alias(libs.plugins.kfmt)
 	//alias(libs.plugins.buildkonfig) apply false
 }
 
@@ -35,6 +35,7 @@ buildscript {
   dependencies { classpath("com.google.protobuf:protobuf-gradle-plugin:0.9.5") }
 }
 
+/*
 ktfmt {
     // KotlinLang style - 4 space indentation - From kotlinlang.org/docs/coding-conventions.html
     kotlinLangStyle()
@@ -50,6 +51,6 @@ ktfmt {
     // Whether ktfmt should automatically add/remove trailing commas.
     manageTrailingCommas.set(false)
 }
-
+*/
 
 tasks.register<Delete>("clean") { delete(layout.buildDirectory) }
