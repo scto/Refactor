@@ -48,10 +48,9 @@ android {
         sourceSets.all {
             languageSettings.enableLanguageFeature("ExplicitBackingFields")
         }
-    }
-
-    kotlinOptions {
-        jvmTarget = ConfigData.javaVersion.toString()
+        compilerOptions {
+            jvmTarget.set(JvmTarget.from(ConfigData.javaVersion.toString()))
+        }
     }
 	
     compileOptions {

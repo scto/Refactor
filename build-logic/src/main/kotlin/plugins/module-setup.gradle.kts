@@ -1,6 +1,7 @@
 import config.ConfigData
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.kotlin.dsl.the
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.library")
@@ -20,15 +21,14 @@ android {
         sourceSets.all {
             languageSettings.enableLanguageFeature("ExplicitBackingFields")
         }
+        compilerOptions {
+            jvmTarget.set(JvmTarget.from(ConfigData.javaVersion.toString()))
+        }
     }
 
     compileOptions {
         sourceCompatibility = ConfigData.javaVersion
         targetCompatibility = ConfigData.javaVersion
-    }
-
-    kotlinOptions {
-        jvmTarget = ConfigData.javaVersion.toString()
     }
 }
 

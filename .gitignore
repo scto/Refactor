@@ -197,4 +197,4 @@ secrets.properties
 .androidide/
 .git/
 
-build.analycis.txt
+build.log.analycis.txt
