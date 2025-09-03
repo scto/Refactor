@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+//import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import config.ConfigData
 
 plugins {
@@ -29,16 +29,22 @@ android {
     defaultConfig {
         minSdk = ConfigData.minSdkVersion
     }
-
-    compileOptions {
-        sourceCompatibility = ConfigData.javaVersion
-        targetCompatibility = ConfigData.javaVersion
-    }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = ConfigData.javaVersion.toString()
+	
+	buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+		debug {
+            isMinifyEnabled = false
+            proguardFiles(
+				getDefaultProguardFile("proguard-android-optimize.txt"),
+				"proguard-rules.pro"
+			)
+        }
     }
 }
 

@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+//import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import config.ConfigData
-
 plugins {
 	alias(libs.plugins.android.library)
 	alias(libs.plugins.kotlin.android)
@@ -33,10 +32,28 @@ android {
         minSdk = ConfigData.minSdkVersion
     }
     
+	buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+		debug {
+            isMinifyEnabled = false
+            proguardFiles(
+				getDefaultProguardFile("proguard-android-optimize.txt"),
+				"proguard-rules.pro"
+			)
+        }
+    }
+	
     buildFeatures {
         compose = true
     }
 
+    /*
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
@@ -45,12 +62,7 @@ android {
         sourceCompatibility = ConfigData.javaVersion
         targetCompatibility = ConfigData.javaVersion
     }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = ConfigData.javaVersion.toString()
-    }
+	*/
 }
 
 dependencies {

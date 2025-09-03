@@ -44,6 +44,16 @@ android {
         }
     }
 
+    kotlin {
+        sourceSets.all {
+            languageSettings.enableLanguageFeature("ExplicitBackingFields")
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = ConfigData.javaVersion.toString()
+    }
+	
     compileOptions {
         sourceCompatibility = ConfigData.javaVersion
         targetCompatibility = ConfigData.javaVersion
@@ -62,12 +72,6 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
-    }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = ConfigData.javaVersion.toString()
     }
 }
 

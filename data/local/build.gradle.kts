@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+//import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import config.ConfigData
 
 plugins {
-    //alias(libs.plugins.android.library)
-    //alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.kfmt)
+    //alias(libs.plugins.kfmt)
 	id("module-setup")
 }
 
@@ -50,25 +50,21 @@ android {
         }
     }
 	
+	buildFeatures {
+        buildConfig = true
+        compose = true
+    }
+	
+	/*
     compileOptions {
         sourceCompatibility = ConfigData.javaVersion
         targetCompatibility = ConfigData.javaVersion
     }
-
-    buildFeatures {
-        buildConfig = true
-        compose = true
-    }
-
+    
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = ConfigData.javaVersion.toString()
-    }
+	*/
 }
 
 dependencies {

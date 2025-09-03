@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+//import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import config.ConfigData
 
 plugins {
@@ -23,7 +23,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.protobuf)
-    alias(libs.plugins.kfmt)
+    //alias(libs.plugins.kfmt)
 	id("module-setup")
 }
 
@@ -41,24 +41,37 @@ android {
         }
     }
 	
+	buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+		debug {
+            isMinifyEnabled = false
+            proguardFiles(
+				getDefaultProguardFile("proguard-android-optimize.txt"),
+				"proguard-rules.pro"
+			)
+        }
+    }
+	
+	buildFeatures {
+        compose = true
+    }
+	
+	/*
     compileOptions {
         sourceCompatibility = ConfigData.javaVersion
         targetCompatibility = ConfigData.javaVersion
     }
 
-    buildFeatures {
-        compose = true
-    }
-
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = ConfigData.javaVersion.toString()
-    }
+	*/
 }
 
 dependencies {
