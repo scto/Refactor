@@ -53,11 +53,11 @@ android {
         compose = true
     }
 
-    /*
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
 	
+	/*
 	compileOptions {
         sourceCompatibility = ConfigData.javaVersion
         targetCompatibility = ConfigData.javaVersion
