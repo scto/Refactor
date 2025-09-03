@@ -39,9 +39,9 @@ tasks.withType<Detekt>().configureEach {
 }
 
 tasks.withType<Detekt>().configureEach {
-    jvmTarget = ConfigData.javaVersion.toString()
+    jvmTarget = config.ConfigData.javaVersion.toString()
 }
 
 tasks.withType<DetektCreateBaselineTask>().configureEach {
-    jvmTarget = ConfigData.javaVersion.toString()
+    jvmTarget = config.ConfigData.javaVersion.toString()
 }

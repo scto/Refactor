@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = ConfingData.applicationBundle
-    compileSdk = ConfigData.compileSdkVersion
+    namespace = config.ConfingData.applicationBundle
+    compileSdk = config.ConfigData.compileSdkVersion
 
     defaultConfig {
-        minSdk = ConfigData.minSdkVersion
+        minSdk = config.ConfigData.minSdkVersion
     }
 
     kotlin {
@@ -22,13 +22,13 @@ android {
             languageSettings.enableLanguageFeature("ExplicitBackingFields")
         }
         compilerOptions {
-			jvmTarget.set(ConfigData.jvmTarget)
+			jvmTarget.set(config.ConfigData.jvmTarget)
         }
     }
 
     compileOptions {
-        sourceCompatibility = ConfigData.javaVersion
-        targetCompatibility = ConfigData.javaVersion
+        sourceCompatibility = config.ConfigData.javaVersion
+        targetCompatibility = config.ConfigData.javaVersion
     }
 }
 
