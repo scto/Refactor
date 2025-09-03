@@ -67,18 +67,17 @@ android {
 
 dependencies {
     implementation(project(":data:local"))
-
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-
-    implementation(libs.androidx.core.ktx)
+	implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.iconsExtended)
-
     implementation(libs.androidx.lifecycle.viewModelCompose)
-    implementation(libs.timber)
     implementation(libs.androidx.navigation.compose)
+	implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.timber)
+	
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }
