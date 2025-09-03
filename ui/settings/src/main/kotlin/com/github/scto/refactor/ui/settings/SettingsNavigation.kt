@@ -15,11 +15,11 @@
  */
 package com.github.scto.refactor.ui.settings
 
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import androidx.hilt.navigation.compose.hiltViewModel
 
 const val SETTINGS_ROUTE = "settings_route"
 const val MAIN_SETTINGS_ROUTE = "main_settings"
@@ -37,7 +37,14 @@ fun NavGraphBuilder.settingsScreen(navController: NavController) {
         startDestination = MAIN_SETTINGS_ROUTE,
     ) {
         composable(MAIN_SETTINGS_ROUTE) {
-            MainSettingsScreen(navController = navController)
+            val viewModel: SettingsViewModel = hiltViewModel()
+            MainSettingsScreen(
+                viewModel = viewModel,
+                onNavigateToTheme = { navController.navigate(THEME_SETTINGS_ROUTE) },
+                onNavigateToDebug = { navController.navigate(DEBUG_SETTINGS_ROUTE) },
+                onNavigateToAbout = { navController.navigate(ABOUT_SETTINGS_ROUTE) },
+                onNavigateBack = { navController.popBackStack() },
+            )
         }
         composable(THEME_SETTINGS_ROUTE) {
             val viewModel: SettingsViewModel = hiltViewModel()
@@ -48,7 +55,8 @@ fun NavGraphBuilder.settingsScreen(navController: NavController) {
             DebugSettingsScreen(viewModel = viewModel, onNavigateBack = { navController.popBackStack() })
         }
         composable(ABOUT_SETTINGS_ROUTE) {
-            AboutSettingsScreen(onNavigateBack = { navController.popBackStack() })
+            val viewModel: SettingsViewModel = hiltViewModel()
+            AboutSettingsScreen(viewModel = viewModel, onNavigateBack = { navController.popBackStack() })
         }
     }
 }

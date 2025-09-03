@@ -27,6 +27,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 
@@ -34,7 +36,9 @@ import com.github.scto.refactor.ui.settings.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutSettingsScreen(onNavigateBack: () -> Unit) {
+fun AboutSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit) {
+    val uiState by viewModel.uiState.collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -53,7 +57,7 @@ fun AboutSettingsScreen(onNavigateBack: () -> Unit) {
         Column(modifier = Modifier.padding(contentPadding)) {
             ListItem(
                 headlineContent = { Text(stringResource(id = R.string.settings_about_version_title)) },
-                supportingContent = { Text("1.0.0") } // Replace with dynamic version later
+                supportingContent = { Text(uiState.appVersion) }
             )
             ListItem(
                 headlineContent = { Text(stringResource(id = R.string.settings_about_developer_title)) },

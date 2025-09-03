@@ -16,10 +16,11 @@
 package com.github.scto.refactor.ui.settings
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+
+// Fehlende Navigationsrouten-Konstanten importiert.
+import com.github.scto.refactor.ui.settings.MAIN_SETTINGS_ROUTE
 
 @Composable
 fun SettingsScreen() {

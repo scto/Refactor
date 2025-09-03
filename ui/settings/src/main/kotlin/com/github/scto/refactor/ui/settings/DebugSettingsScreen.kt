@@ -21,6 +21,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.github.scto.refactor.ui.settings.R
@@ -28,6 +30,8 @@ import com.github.scto.refactor.ui.settings.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DebugSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit) {
+    val uiState by viewModel.uiState.collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -46,8 +50,16 @@ fun DebugSettingsScreen(viewModel: SettingsViewModel, onNavigateBack: () -> Unit
         Column(modifier = Modifier.padding(contentPadding)) {
             // Add debug-specific settings here later
             ListItem(
-                headlineContent = { Text("Placeholder Debug Setting") },
-                supportingContent = { Text("This is a setting for debugging purposes.") }
+                headlineContent = { Text("Debugging aktivieren") },
+                supportingContent = { Text("Aktiviert erweiterte Protokollierung.") },
+                trailingContent = {
+                    Switch(
+                        checked = uiState.debug,
+                        onCheckedChange = { isChecked ->
+                            viewModel.handleEvent(SettingsUiEvent.OnDebugChanged(isChecked))
+                        },
+                    )
+                },
             )
         }
     }

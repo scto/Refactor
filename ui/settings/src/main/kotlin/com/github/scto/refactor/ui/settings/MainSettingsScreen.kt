@@ -28,21 +28,30 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 
 import com.github.scto.refactor.ui.settings.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainSettingsScreen(navController: NavController) {
+fun MainSettingsScreen(
+    viewModel: SettingsViewModel,
+    onNavigateToTheme: () -> Unit,
+    onNavigateToDebug: () -> Unit,
+    onNavigateToAbout: () -> Unit,
+    onNavigateBack: () -> Unit,
+) {
+    val uiState by viewModel.uiState.collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(id = R.string.settings_main_title)) },
                 navigationIcon = {
-                    IconButton(onClick = { navController.navigateUp() }) {
+                    IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(id = R.string.action_back),
@@ -55,15 +64,15 @@ fun MainSettingsScreen(navController: NavController) {
         Column(modifier = Modifier.padding(contentPadding)) {
             ListItem(
                 headlineContent = { Text(stringResource(id = R.string.settings_theme_title)) },
-                modifier = Modifier.clickable { navController.navigate(THEME_SETTINGS_ROUTE) },
+                modifier = Modifier.clickable { onNavigateToTheme() },
             )
 			ListItem(
                 headlineContent = { Text(stringResource(id = R.string.settings_debug_title)) },
-                modifier = Modifier.clickable { navController.navigate(DEBUG_SETTINGS_ROUTE) },
+                modifier = Modifier.clickable { onNavigateToDebug() },
             )
             ListItem(
                 headlineContent = { Text(stringResource(id = R.string.settings_about_title)) },
-                modifier = Modifier.clickable { navController.navigate(ABOUT_SETTINGS_ROUTE) },
+                modifier = Modifier.clickable { onNavigateToAbout() },
             )
         }
     }
