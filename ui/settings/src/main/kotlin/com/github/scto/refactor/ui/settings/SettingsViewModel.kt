@@ -34,14 +34,14 @@ class SettingsViewModel @Inject constructor(
 ) : ViewModel() {
     val uiState: StateFlow<SettingsUiState> =
         userPreferencesRepository.userPreferences.map {
-            SettingsUiState.Success(
+            SettingsUiState(
                 theme = it.theme,
                 dynamicColor = it.dynamicColor,
             )
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = SettingsUiState.Loading,
+            initialValue = SettingsUiState(),
         )
 
     fun handleEvent(event: SettingsUiEvent) {
