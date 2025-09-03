@@ -34,6 +34,7 @@ import androidx.navigation.NavController
 
 //import com.github.scto.refactor.R
 import com.github.scto.refactor.ui.settings.R
+import com.github.scto.refactor.ui.settings.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
