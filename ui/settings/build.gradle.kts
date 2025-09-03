@@ -73,8 +73,12 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.iconsExtended)
+	
+	implementation(libs.androidx.compose.material.iconsExtended.automirrored)
+	
     // Add this dependency to resolve the automirrored icons.
-    implementation("androidx.compose.material:material-icons-extended-automirrored")
+    //implementation("androidx.compose.material:material-icons-extended-automirrored")
+	
     implementation(libs.androidx.lifecycle.viewModelCompose)
     implementation(libs.androidx.navigation.compose)
 	implementation(libs.androidx.hilt.navigation.compose)
