@@ -68,10 +68,7 @@ android {
 
 dependencies {
     implementation(project(":data:local"))
-
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-
+	
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -82,4 +79,18 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.accompanist.pager)
     implementation(libs.accompanist.pager.indicators)
+	
+	implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+	
+	testImplementation(libs.junit4)
+	
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test)
+	
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.testManifest)
 }

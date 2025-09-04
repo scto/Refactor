@@ -23,6 +23,10 @@ android {
         }
         compilerOptions {
 			jvmTarget.set(ConfigData.jvmTarget)
+			allWarningsAsErrors = false
+            freeCompilerArgs += [
+                '-opt-in=androidx.compose.material3.ExperimentalMaterial3Api'
+            ]
         }
     }
 

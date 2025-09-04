@@ -68,11 +68,7 @@ android {
 dependencies {
     implementation(project(":core:gemini"))
 	
-    implementation(libs.hilt.android)
-	ksp(libs.hilt.compiler)
-	implementation(libs.androidx.hilt.navigation.compose)
-
-    implementation(libs.androidx.core.ktx)
+	implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
@@ -80,4 +76,19 @@ dependencies {
 	implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.lifecycle.viewModelCompose)
     implementation(libs.timber)
+	implementation(libs.androidx.navigation.compose)
+	
+	implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.hilt.android)
+	ksp(libs.hilt.compiler)
+	
+	testImplementation(libs.junit4)
+	
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test)
+	
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.testManifest)
 }

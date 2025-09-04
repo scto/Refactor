@@ -73,17 +73,25 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.iconsExtended)
-	
-	implementation(libs.androidx.compose.material.iconsExtended.automirrored)
+	implementation(libs.androidx.lifecycle.viewModelCompose)
+    implementation(libs.androidx.navigation.compose)
 	
     // Add this dependency to resolve the automirrored icons.
     //implementation("androidx.compose.material:material-icons-extended-automirrored")
 	
-    implementation(libs.androidx.lifecycle.viewModelCompose)
-    implementation(libs.androidx.navigation.compose)
-	implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.timber)
 	
+	implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+	
+	testImplementation(libs.junit4)
+	
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test)
+	
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.testManifest)
 }

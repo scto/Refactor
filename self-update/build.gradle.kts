@@ -59,4 +59,19 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.logging)
+	
+	// Hilt for Dependency Injection
+	implementation(libs.hilt.android)
+    // Ersetzen Sie 'kapt' durch 'ksp', falls Sie KSP verwenden
+    ksp(libs.hilt.compiler)
+	
+	testImplementation(libs.junit4)
+	
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test)
+	
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.testManifest)
 }
