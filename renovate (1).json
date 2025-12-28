@@ -4,13 +4,34 @@
     "config:recommended",
     ":dependencyDashboard"
   ],
+  "timezone": "Europe/Helsinki",
+  "schedule": [
+    "* 21-22 * * 3"
+  ],
+  "rebaseWhen": "conflicted",
   "forkProcessing": "enabled",
   "automerge": false,
+
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": false,
     "automergeType": "pr",
-    "platformAutomerge": false
+    "platformAutomerge": false,
+    "schedule": [
+        "* 21-22 * * 4"
+    ],
+    "rangeStrategy": "bump",
+    "commitMessageAction": "Update yarn lockfile"
   },
+  "packageRules": [
+    {
+      "matchDepTypes": ["packageManager"],
+      "enabled": true
+    },
+    {
+      "matchDepTypes": ["dependencies", "devDependencies"],
+      "enabled": false
+    }
+  ]
   "includeForks": true
 }
