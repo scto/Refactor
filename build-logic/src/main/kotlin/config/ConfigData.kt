@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 object ConfigData {
     const val applicationBundle = "com.github.scto.refactor"
 	
-    const val compileSdkVersion = 35
+    const val compileSdkVersion = 36
     const val minSdkVersion = 26
     const val targetSdkVersion = 35
 	const val versionCode = 100
