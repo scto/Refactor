@@ -1,16 +1,24 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    ":dependencyDashboard"
-  ],
-  "forkProcessing": "enabled",
-  "automerge": false,
+  "extends": ["config:recommended"],
+  "timezone": "Europe/Helsinki",
+  "schedule": ["* 21-22 * * 3"],
+  "rebaseWhen": "conflicted",
+  "enabledManagers": ["npm"],
   "lockFileMaintenance": {
     "enabled": true,
-    "automerge": false,
-    "automergeType": "pr",
-    "platformAutomerge": false
+    "schedule": ["* 21-22 * * 4"],
+    "rangeStrategy": "bump",
+    "commitMessageAction": "Update yarn lockfile"
   },
-  "includeForks": true
+  "packageRules": [
+    {
+      "matchDepTypes": ["packageManager"],
+      "enabled": true
+    },
+    {
+      "matchDepTypes": ["dependencies", "devDependencies"],
+      "enabled": false
+    }
+  ]
 }
