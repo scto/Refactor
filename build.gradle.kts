@@ -26,7 +26,7 @@ plugins {
     alias(libs.plugins.ksp) apply false
 	alias(libs.plugins.room) apply false
 	//alias(libs.plugins.detekt) apply false
-    alias(libs.plugins.protobuf) apply false
+    alias(libs.plugins.google.protobuf) apply false
     //alias(libs.plugins.kfmt)
 	//alias(libs.plugins.buildkonfig) apply false
 }
