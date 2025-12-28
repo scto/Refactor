@@ -22,7 +22,8 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.protobuf)
+    alias(libs.plugins.google.protobuf)
+    //alias(libs.plugins.protobuf)
     //alias(libs.plugins.kfmt)
 	id("module-setup")
 }
@@ -121,6 +122,8 @@ dependencies {
     
     implementation(libs.protobuf.javalite)
     implementation(libs.protobuf.kotlin.lite)
+    // Protobuf
+    //api(libs.protobuf.kotlin)
     
     // Room Database
     implementation("androidx.room:room-runtime:2.6.1")
@@ -132,9 +135,6 @@ dependencies {
 	
 	// Jetpack Security
     implementation("androidx.security:security-crypto-ktx:1.1.0")
-
-    // Protobuf
-    api(libs.protobuf.kotlin)
 
     // --- NEUE TEST-ABHÄNGIGKEITEN ---
     testImplementation(libs.junit4)
