@@ -74,6 +74,33 @@ android {
     }
 }
 
+protobuf {
+    protoc {
+        val termuxProtocPath = "/data/data/com.tom.rv2ide/files/usr/bin/protoc"
+        val termuxProtocFile = File(termuxProtocPath)
+
+        if (termuxProtocFile.exists()) {
+            path = termuxProtocPath
+        } else {
+            artifact = libs.protobuf.protoc.get().toString()
+            //artifact = "com.google.protobuf:protoc:${libs.versions.protobuf.get()}"
+        }
+    }
+
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                create("java") {
+                    option("lite")
+                }
+                create("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
 dependencies {
     // Git Client
     implementation(libs.jgit)
@@ -106,6 +133,9 @@ dependencies {
 	// Jetpack Security
     implementation("androidx.security:security-crypto-ktx:1.1.0")
 
+    // Protobuf
+    api(libs.protobuf.kotlin)
+
     // --- NEUE TEST-ABHÄNGIGKEITEN ---
     testImplementation(libs.junit4)
 	
@@ -116,22 +146,4 @@ dependencies {
 	
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.testManifest)
-}
-
-protobuf {
-    protoc {
-        artifact = libs.protobuf.protoc.get().toString()
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                create("java") {
-                    option("lite")
-                }
-                create("kotlin") {
-                    option("lite")
-                }
-            }
-        }
-    }
 }
