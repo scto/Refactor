@@ -63,7 +63,10 @@ hilt = "2.50"
 hiltExt = "1.1.0"
 
 grpc = "1.49.2"
-protobuf = "3.25.3" # CORRECTED: Aligned with usage
+
+plugin-protobuf = "0.9.5"
+#protobuf = "3.25.3" # CORRECTED: Aligned with usage
+protobuf = "4.33.2" # keep 4.26.1 version , otherwise there is a duplicated classes in Firebase Firestore
 
 retrofit = "2.9.0"
 okhttp = "4.12.0"
@@ -151,6 +154,7 @@ androidx-work-testing = { group = "androidx.work", name = "work-testing", versio
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 protobuf-javalite = { group = "com.google.protobuf", name = "protobuf-javalite", version.ref = "protobuf" }
 protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
+#protobuf-kotlin = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
 
 # Room
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -240,5 +244,6 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 #spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 #detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektPlugin" }
 room = { id = "androidx.room", version.ref = "room" }
-protobuf = { id = "com.google.protobuf", version.ref = "androidProtoGradlePlugin" }
+#protobuf = { id = "com.google.protobuf", version.ref = "androidProtoGradlePlugin" }
+google-protobuf = { id = "com.google.protobuf", version.ref = "plugin-protobuf" }
 kfmt = { id = "com.ncorti.ktfmt.gradle", version.ref = "kfmtGradlePlugin" }
