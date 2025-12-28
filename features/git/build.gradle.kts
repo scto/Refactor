@@ -82,8 +82,8 @@ protobuf {
         if (termuxProtocFile.exists()) {
             path = termuxProtocPath
         } else {
-            artifact = libs.protobuf.protoc.get().toString()
-            //artifact = "com.google.protobuf:protoc:${libs.versions.protobuf.get()}"
+            //artifact = libs.protobuf.protoc.get().toString()
+            artifact = "com.google.protobuf:protoc:${libs.versions.protobuf.get()}"
         }
     }
 
