@@ -27,7 +27,7 @@ androidxTestRules = "1.5.0"
 androidxTracing = "1.2.0"
 androidxUiAutomator = "2.2.0"
 androidxWork = "2.9.0"
-androidxDataStore = "1.1.7"
+androidxDataStore = "1.2.0"
 androidxPreference = "1.2.1"
 
 firebaseBom = "33.7.0"
