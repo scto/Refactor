@@ -53,7 +53,7 @@ glide = "4.16.0"
 bsh = "3.0.0-SNAPSHOT"
 ktsh = "1.0.0"
 leakcanaryAndroid = "2.14"
-lsp4j = "0.23.1"
+lsp4j = "0.24.0"
 
 kermit = "2.0.6"
 
