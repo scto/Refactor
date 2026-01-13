@@ -1,7 +1,7 @@
 @Suppress("DSL_SCOPE_VIOLATION") // Remove if not needed
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
