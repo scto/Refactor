@@ -117,7 +117,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.3")
 
     // DataStore (Proto)
-    implementation("androidx.datastore:datastore:1.1.1")
+    implementation("androidx.datastore:datastore:1.2.0")
     
     implementation(libs.protobuf.javalite)
     implementation(libs.protobuf.kotlin.lite)
